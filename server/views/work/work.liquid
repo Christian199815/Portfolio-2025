@@ -1,0 +1,58 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+<section id="work">
+  <h2>My Work</h2>
+  
+  <!-- Filter and Sort Controls -->
+  <div class="controls">
+    <div class="filters">
+      <select id="category-filter" data-category-filter>
+        <option value="">All Categories</option>
+        {% for category in categories %}
+        <option value="{{ category }}" {% if category == selectedCategory %}selected{% endif %}>{{ category }}</option>
+        {% endfor %}
+      </select>
+      
+      <select id="product-type-filter" data-product-type-filter>
+        <option value="">All Product Types</option>
+        {% for type in productTypes %}
+        <option value="{{ type }}" {% if type == selectedProductType %}selected{% endif %}>{{ type }}</option>
+        {% endfor %}
+      </select>
+      
+      <select id="project-type-filter" data-project-type-filter>
+        <option value="">All Project Types</option>
+        {% for type in projectTypes %}
+        <option value="{{ type }}" {% if type == selectedProjectType %}selected{% endif %}>{{ type }}</option>
+        {% endfor %}
+      </select>
+      
+      <button id="clear-filters" data-clear-filters>Clear Filters</button>
+    </div>
+    
+    <div class="sort-options">
+      <label for="sort-by">Sort by:</label>
+      <select id="sort-by" data-sort-by-filter>
+        <option value="newest" {% if selectedSort == 'newest' %}selected{% endif %}>Newest First</option>
+        <option value="oldest" {% if selectedSort == 'oldest' %}selected{% endif %}>Oldest First</option>
+        <option value="name" {% if selectedSort == 'name' %}selected{% endif %}>Project Name</option>
+      </select>
+    </div>
+  </div>
+
+  <ul id="projects-list">
+    {% if projects.size == 0 %}
+      <li class="no-results">
+        <h3>No projects found</h3>
+        <p>Try adjusting your filters</p>
+      </li>
+    {% else %}
+      {% for project in projects %}
+        {% render '../../components/project-card/project-card.liquid', project: project %}
+      {% endfor %}
+    {% endif %}
+  </ul>
+</section>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+#work{
+    position: relative;
+  
+    h2 {
+      text-align: center;
+      font-size: 3em;
+      margin: 0.8em 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+    
+    
+      .filters, .sort-options {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    
+        select {
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          background-color: white;
+          cursor: pointer;
+        }
+    
+        button {
+          padding: 8px 16px;
+          background-color: #333;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+    
+        button:hover {
+          background-color: #555;
+        }
+      }
+    
+    
+    }
+
+  
+    #projects-list{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      column-gap: 2em;
+      row-gap: 5em;
+  
+      margin-bottom: 4rem;
+  
+      
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      grid-column: 1 / -1;
+    }
+}

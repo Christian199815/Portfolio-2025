@@ -1,0 +1,67 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+<section id="project">
+  <section id="project-intro">
+    <div>
+      <h2 id="project-title">{{ project.projectname }}</h2>
+      <p id="project-breadcrumb">
+        <a href="/">Home</a> / 
+        <a href="/work?category={{ project.category }}" id="category-link" data-category="{{ project.category }}">{{ project.category }}</a> / 
+        <span id="project-name">{{ project.projectname }}</span>
+      </p>
+    </div>
+    <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" id="featured-image">
+    {% if project.projectImages.size > 1 %}
+      <img src="{{ project.projectImages[1] }}" alt="{{ project.projectname }}" id="secondary-image">
+    {% endif %}
+    <a href="#project-gallery">See More</a>
+  </section>
+
+  <section id="project-info">
+    <p id="project-description">{{ project.projectBodyText | default: "Project description coming soon..." }}</p>
+    <ul id="project-languages-list">
+      {% for language in project.projectLanguages %}
+        {% render 'server/components/language-item.liquid', language: language %}
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section id="project-quote">
+    <h2>Project quote</h2>
+    {% if project.project_quote %}
+      <blockquote>
+        <p>{{ project.project_quote }}</p>
+      </blockquote>
+    {% else %}
+      <p>No quote available for this project.</p>
+    {% endif %}
+  </section>
+
+  <section id="project-progress">
+    <h2>Progress</h2>
+    {% if project.project_progress %}
+      {% for progress in project.project_progress %}
+        <div class="progress-item">
+          <h3 class="progress-name">{{ progress.progress_name }}</h3>
+          <p class="progress-body">{{ progress.progress_body_text }}</p>
+          {% if progress.progress_content.duration %}
+            <p class="progress-duration">Duration: {{ progress.progress_content.duration }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No progress information available for this project.</p>
+    {% endif %}
+  </section>
+
+  <section id="project-gallery">
+    <h2>Image Gallery</h2>
+    <div id="gallery-images">
+      {% for image in project.projectImages %}
+        {% render 'server/components/gallery-image.liquid', image: image, projectname: project.projectname %}
+      {% endfor %}
+    </div>
+  </section>
+</section>
+{% endblock %}

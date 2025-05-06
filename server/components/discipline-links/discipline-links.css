@@ -1,0 +1,32 @@
+#disciplines-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 30%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    list-style: none;
+
+    li a{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--link-border-color);
+    }
+  }
+
+#discipline-highlighter {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    width: 60%;
+    height: 60%;
+    object-fit: cover;
+    /* aspect-ratio: 16 / 9; */
+  }

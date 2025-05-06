@@ -1,0 +1,199 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+
+<section id="intro-section">
+  <ul class="image-stairs" id="image-stairs">
+    {% for stair in imageStairs %}
+    <li>
+      <img src="{{ stair.src }}" alt="{{ stair.alt }}" />
+    </li>
+    {% endfor %}
+  </ul>
+  <article>
+    <h2>Frontend Developer</h2>
+    <p class="content-block">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi id
+      aliquid ad sapiente? Eos aliquid alias nesciunt beatae at vitae
+      sapiente, ipsam unde, iure, harum ex laudantium ullam placeat
+      amet?
+    </p>
+    {% render '../components/contact-button/contact-button.liquid' %}
+  </article>
+</section>
+
+<!-- disciplines -->
+<section id="discipline-section">
+  <p class="content-block">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores non
+    ullam delectus sapiente facere quis praesentium illo, eos deserunt
+    veritatis libero, officiis odio quos fuga aperiam maxime odit ducimus
+    blanditiis.
+  </p>
+  <!-- Discpline links, hover to change image -->
+  {% render '../components/discipline-links/discipline-links.liquid' %}
+  {% render '../components/contact-button/contact-button.liquid' %}
+</section>
+
+<!-- Highlighted projects -->
+<section id="featured-work-section">
+  <article class="heading-block">
+    <h2>Featured Work</h2>
+    <p class="content-block">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla
+      incidunt placeat velit quas qui a quidem voluptas accusamus dicta.
+      Similique impedit possimus itaque quos ipsam ipsum fuga at ullam
+      libero!
+    </p>
+    {% render '../components/contact-button/contact-button.liquid' %}
+  </article>
+  <ul id="featured-projects-list">
+    {% for project in featuredProjects %}
+    <li>
+      <div>
+        <h3>{{ project.projectname }}</h3>
+        <p>{{ project.projectBodyText | default: 'Project description coming soon...' }}</p>
+      </div>
+      <img src="{{ project.projectFeaturedImage }}" alt="featured image of {{ project.projectname }}" />
+      <a href="/project/{{ project.id }}">View Project</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<!-- Expertises / Skills -->
+<section id="expertises-section">
+  <div>
+    <h2>My Expertises</h2>
+    <p class="contact-block">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
+      recusandae adipisci tempora architecto laudantium! Quod reiciendis
+      ratione dolorem ex iste tempora, explicabo debitis natus ducimus porro
+      aliquid, architecto alias mollitia.
+    </p>
+    {% render '../components/contact-button/contact-button.liquid' %}
+  </div>
+  <ul>
+    <li>
+      <p>Game Prog.</p>
+      <hr>
+      <h3>Game prog skill</h3>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus
+        assumenda delectus beatae aliquam repellat reprehenderit soluta,
+        officiis magni ullam ipsum debitis, illo quibusdam saepe facere
+        voluptates magnam laudantium maxime? Ipsam!
+      </p>
+    </li>
+    <li>
+      <p>Web Des.</p>
+      <hr>
+      <h3>Web Des. skill</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
+        eaque recusandae similique dolores commodi ipsa voluptate, omnis
+        nesciunt aperiam deserunt vero mollitia enim fugiat repellendus
+        quas provident quod! Dolorum, impedit!
+      </p>
+    </li>
+    <li>
+      <p>Web Prog.</p>
+      <hr>
+      <h3>Web Prog skill</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga
+        accusamus sunt quos soluta, ex dolores saepe, voluptate
+        consectetur eius nemo iure consequuntur possimus quis. Eius fuga
+        porro tempora neque adipisci!
+      </p>
+    </li>
+    <li>
+      <p>Game Des.</p>
+      <hr>
+      <h3>Game Des. skill</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+        quaerat maiores mollitia eaque odio ea itaque laboriosam obcaecati
+        delectus eius assumenda expedita velit nisi libero iusto, impedit
+        laborum exercitationem quos.
+      </p>
+    </li>
+    <li>
+      <p>Web Prog.</p>
+      <hr>
+      <h3>Web prog skill</h3>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero
+        ducimus perspiciatis labore, adipisci praesentium eius magnam non
+        fugiat suscipit amet itaque numquam soluta dolorem, nulla illo
+        odio, possimus saepe cum.
+      </p>
+    </li>
+  </ul>
+</section>
+
+<!-- Currently Working -->
+<section id="current-work-section">
+  <article class="heading-block">
+    <h2>Projects I'm currently work on!</h2>
+    <p class="content-block">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, esse
+      perspiciatis explicabo, saepe, veritatis minus eum repudiandae
+      repellendus atque dignissimos incidunt? Ea sed commodi dolor labore
+      perspiciatis veritatis quibusdam exercitationem!
+    </p>
+    {% render '../components/contact-button/contact-button.liquid' %}
+  </article>
+  <div id="test-projects-carousel" class="carousel-container">
+    <ul class="carousel-track">
+      {% for project in testProjects %}
+      <li>
+        <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" />
+        <h3 class="project-title">{{ project.projectname }}</h3>
+      </li>
+      {% endfor %}
+      
+      <!-- Duplicate projects for smooth infinite scroll -->
+      {% for project in testProjects %}
+      <li>
+        <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" />
+        <h3 class="project-title">{{ project.projectname }}</h3>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- Friends and coworkers section -->
+<section id="recommendations-section">
+  <article class="heading-block">
+    <h2>People say about me!</h2>
+    <p class="content-block">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit voluptatum recusandae quas tenetur earum. Repellat similique in quasi nemo provident iste debitis, mollitia rem architecto. Autem dolorum ducimus ipsa ipsam.</p>
+    {% render '../components/contact-button/contact-button.liquid' %}
+  </article>
+
+  <div>
+    <h3>Person A</h3>
+    <h4>Person A title</h4>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia
+      labore quis reiciendis tenetur dolores aliquid ad laboriosam eius
+      repellendus, doloribus natus, quasi dicta obcaecati praesentium
+      nihil in fugiat voluptate fuga!
+    </p>
+    <img src="./images/img-placeholder.png" alt="photo of person A" />
+  </div>
+  <div>
+    <h3>Person A</h3>
+    <h4>Person A title</h4>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia
+      labore quis reiciendis tenetur dolores aliquid ad laboriosam eius
+      repellendus, doloribus natus, quasi dicta obcaecati praesentium
+      nihil in fugiat voluptate fuga!
+    </p>
+    <img src="./images/img-placeholder.png" alt="photo of person A" />
+  </div>
+</section>
+
+{% endblock %}

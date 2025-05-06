@@ -1,0 +1,52 @@
+/* global styles */
+@import 'reset.css';
+@import "typography.css";
+
+/*.layout and view styling */
+@import '../server/layouts/base.css';
+@import '../server/views/index.css';
+@import '../server/views/work/work.css';
+@import '../server/views/project/project.css';
+
+/* component styling */
+/* @import '../server/components/card/card.css'; */
+@import '../server/components/project-card/project-card.css';
+
+@import '../server/components/contact-button/contact-button.css';
+@import '../server/components/discipline-links/discipline-links.css';
+
+
+:root{
+  --link-border-color: black;
+}
+
+
+
+
+.content-block {
+  margin: 0;
+  width: 300px;
+  /* margin-bottom: 2rem; */
+}
+
+
+
+.heading-block {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 0.2fr;
+
+  h2 {
+    grid-area: 1 / 1 / 3 / 2;
+    font-size: 6rem;
+  }
+
+  p {
+    grid-area: 1 / 2 / 2 / 3;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+}
