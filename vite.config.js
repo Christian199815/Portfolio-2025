@@ -4,8 +4,15 @@ const __dirname = import.meta.dirname;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost',
+    },
+  },
   build: {
     publicDir: 'client',
+    cssCodeSplit: true,
     minify: false,
     emptyOutDir: false,
     outDir: 'dist',

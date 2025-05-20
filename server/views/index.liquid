@@ -11,12 +11,10 @@
     {% endfor %}
   </ul>
   <article>
-    <h2>Frontend Developer</h2>
+    {% render '../components/rolling-text/rolling-text.liquid' %}
+    {% comment %} <h2>Frontend Developer</h2> {% endcomment %}
     <p class="content-block">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi id
-      aliquid ad sapiente? Eos aliquid alias nesciunt beatae at vitae
-      sapiente, ipsam unde, iure, harum ex laudantium ullam placeat
-      amet?
+      Hey, welcome to my portfolio! I’m Chris a tall, passionate builder of web and game experiences. Take a look around and check out the projects I’ve worked on!
     </p>
     {% render '../components/contact-button/contact-button.liquid' %}
   </article>
@@ -24,15 +22,10 @@
 
 <!-- disciplines -->
 <section id="discipline-section">
-  <p class="content-block">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores non
-    ullam delectus sapiente facere quis praesentium illo, eos deserunt
-    veritatis libero, officiis odio quos fuga aperiam maxime odit ducimus
-    blanditiis.
-  </p>
+
   <!-- Discpline links, hover to change image -->
   {% render '../components/discipline-links/discipline-links.liquid' %}
-  {% render '../components/contact-button/contact-button.liquid' %}
+  {% comment %} {% render '../components/contact-button/contact-button.liquid' %} {% endcomment %}
 </section>
 
 <!-- Highlighted projects -->
@@ -40,22 +33,21 @@
   <article class="heading-block">
     <h2>Featured Work</h2>
     <p class="content-block">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla
-      incidunt placeat velit quas qui a quidem voluptas accusamus dicta.
-      Similique impedit possimus itaque quos ipsam ipsum fuga at ullam
-      libero!
+      These are a few projects I’ve worked on in the past. Each one shaped by creativity, problem-solving, and a passion for building.
     </p>
     {% render '../components/contact-button/contact-button.liquid' %}
   </article>
   <ul id="featured-projects-list">
     {% for project in featuredProjects %}
     <li>
+      <a href="/project/{{ project.id }}">
       <div>
         <h3>{{ project.projectname }}</h3>
-        <p>{{ project.projectBodyText | default: 'Project description coming soon...' }}</p>
+        <p>{{ project.projectFeaturedText | default: 'Project description coming soon...' }}</p>
       </div>
       <img src="{{ project.projectFeaturedImage }}" alt="featured image of {{ project.projectname }}" />
-      <a href="/project/{{ project.id }}">View Project</a>
+      <p>View Project</p>
+     </a>
     </li>
     {% endfor %}
   </ul>
@@ -66,68 +58,45 @@
   <div>
     <h2>My Expertises</h2>
     <p class="contact-block">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-      recusandae adipisci tempora architecto laudantium! Quod reiciendis
-      ratione dolorem ex iste tempora, explicabo debitis natus ducimus porro
-      aliquid, architecto alias mollitia.
+      Over the past few years, I’ve grown my skill set across both web and game development, ranging from coding and design to user experience and interactive storytelling. Each project has helped me sharpen my expertise and explore new creative challenges.
     </p>
     {% render '../components/contact-button/contact-button.liquid' %}
   </div>
   <ul>
     <li>
-      <p>Game Prog.</p>
+      <h3>Agile Workflow</h3>
       <hr>
-      <h3>Game prog skill</h3>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus
-        assumenda delectus beatae aliquam repellat reprehenderit soluta,
-        officiis magni ullam ipsum debitis, illo quibusdam saepe facere
-        voluptates magnam laudantium maxime? Ipsam!
-      </p>
+      {% comment %} <p>
+        Through working with Agile workflows and Scrum, I’ve learned how to break projects into smaller, manageable tasks and tackle them in focused sprints. This step-by-step approach helps me stay organized, adapt quickly, and steadily build toward the bigger picture.
+      </p> {% endcomment %}
     </li>
     <li>
-      <p>Web Des.</p>
+      <h3>Leading Role</h3>
       <hr>
-      <h3>Web Des. skill</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
-        eaque recusandae similique dolores commodi ipsa voluptate, omnis
-        nesciunt aperiam deserunt vero mollitia enim fugiat repellendus
-        quas provident quod! Dolorum, impedit!
-      </p>
+      {% comment %} <p>
+        In group projects, I enjoy taking on a leading role—bringing out the strengths of each team member while creating space for everyone to grow. I believe in guiding a team with structure and support, but always staying open to learning and development along the way.
+      </p> {% endcomment %}
     </li>
     <li>
-      <p>Web Prog.</p>
+      <h3>Problem Solving</h3>
       <hr>
-      <h3>Web Prog skill</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga
-        accusamus sunt quos soluta, ex dolores saepe, voluptate
-        consectetur eius nemo iure consequuntur possimus quis. Eius fuga
-        porro tempora neque adipisci!
-      </p>
+      {% comment %} <p>
+        When I’m given an assignment or faced with a problem, I like to dive right in. I enjoy exploring solutions by combining what I already know with what I can learn—whether that’s through research, experimenting, or asking the people around me.
+      </p> {% endcomment %}
     </li>
     <li>
-      <p>Game Des.</p>
+      <h3>Coding Help</h3>
       <hr>
-      <h3>Game Des. skill</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-        quaerat maiores mollitia eaque odio ea itaque laboriosam obcaecati
-        delectus eius assumenda expedita velit nisi libero iusto, impedit
-        laborum exercitationem quos.
-      </p>
+      {% comment %} <p>
+        When helping others with coding problems, I focus on guiding them to understand the core concepts behind the issue. I believe it’s more valuable to steer them toward discovering solutions themselves, so they build confidence and skills—because simply giving the answer doesn’t help in the long run.
+      </p> {% endcomment %}
     </li>
     <li>
-      <p>Web Prog.</p>
+      <h3>Digital Creative</h3>
       <hr>
-      <h3>Web prog skill</h3>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero
-        ducimus perspiciatis labore, adipisci praesentium eius magnam non
-        fugiat suscipit amet itaque numquam soluta dolorem, nulla illo
-        odio, possimus saepe cum.
-      </p>
+      {% comment %} <p>
+        I work with a variety of tools to bring ideas to life—from coding in VS Code and building games in Unity, to editing videos in Final Cut Pro and designing prototypes and presentations in Figma. Each program helps me tackle different creative and technical challenges effectively.
+      </p> {% endcomment %}
     </li>
   </ul>
 </section>
@@ -137,35 +106,34 @@
   <article class="heading-block">
     <h2>Projects I'm currently work on!</h2>
     <p class="content-block">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, esse
-      perspiciatis explicabo, saepe, veritatis minus eum repudiandae
-      repellendus atque dignissimos incidunt? Ea sed commodi dolor labore
-      perspiciatis veritatis quibusdam exercitationem!
+      Here’s a sneak peek at some of the projects I’m currently working on. These ongoing experiments help me sharpen my skills and explore new ideas and techniques.
     </p>
     {% render '../components/contact-button/contact-button.liquid' %}
   </article>
-  <div id="test-projects-carousel" class="carousel-container">
-    <ul class="carousel-track">
+  <div id="projects-carousel" class="carousel-container">
+    <ul class="carousel-track" data-carousel>
       {% for project in testProjects %}
-      <li>
-        <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" />
-        <h3 class="project-title">{{ project.projectname }}</h3>
-      </li>
-      {% endfor %}
-      
-      <!-- Duplicate projects for smooth infinite scroll -->
-      {% for project in testProjects %}
-      <li>
+      <li data-slide class="{% if forloop.first %}active{% endif %}">
         <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" />
         <h3 class="project-title">{{ project.projectname }}</h3>
       </li>
       {% endfor %}
     </ul>
+    
+    <div class="carousel-controls">
+      <button class="prev-slide" aria-label="Previous slide">&#10094;</button>
+      <div class="carousel-dots">
+        {% for project in testProjects %}
+        <span class="dot {% if forloop.first %}active{% endif %}" data-slide-index="{{ forloop.index0 }}"></span>
+        {% endfor %}
+      </div>
+      <button class="next-slide" aria-label="Next slide">&#10095;</button>
+    </div>
   </div>
 </section>
 
 <!-- Friends and coworkers section -->
-<section id="recommendations-section">
+{% comment %} <section id="recommendations-section">
   <article class="heading-block">
     <h2>People say about me!</h2>
     <p class="content-block">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit voluptatum recusandae quas tenetur earum. Repellat similique in quasi nemo provident iste debitis, mollitia rem architecto. Autem dolorum ducimus ipsa ipsam.</p>
@@ -194,6 +162,6 @@
     </p>
     <img src="./images/img-placeholder.png" alt="photo of person A" />
   </div>
-</section>
+</section> {% endcomment %}
 
 {% endblock %}

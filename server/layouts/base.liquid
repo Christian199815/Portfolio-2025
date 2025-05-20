@@ -2,6 +2,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   {% block head %}
     <title>{{ title }}</title>
   {% endblock %}
@@ -14,10 +16,10 @@
 <body>
   <nav>
       <!-- Logo -->
-      <a href="/"><img src="../../public/images/logo.svg" alt="" /></a>
+      <a href="/"><img src="../../public/images/Chris.svg" alt="name logo of Chris" /></a>
       <ul>
         <li><a href="/work">work</a></li>
-        <li><a href="/about">about</a></li>
+        {% comment %} <li><a href="/about">about</a></li> {% endcomment %}
         <li><a href="/contact">contact</a></li>
       </ul>
     </nav>
@@ -25,28 +27,38 @@
     {% block content %}{% endblock %}
   </main>
   <footer>
-        <div>
-            <a href=/home"><img src="./images/logo.svg" alt="" /></a>
+    <div>
+      <section>
+        <a href=/"><img src="./images/Chris.svg" alt="name logo of Chris" /></a>
             <h2>Let's Connect!</h2>
-            <p class="content-block">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit ullam numquam eveniet quia qui repudiandae, ut, ratione quam distinctio voluptates tempora molestias nobis. Nulla rem dolorem veritatis, excepturi harum commodi!</p>
-            <button class="contact-link">CLICK HERE NOW!!</button>
-        </div>
-        <img src="./images/img-placeholder.png" alt="featured photo of Chris">
+            <p class="content-block">Got questions about my work or ideas you'd like to share? Feel free to reach out—I'd love to have a chat!</p>
+            <button class="contact-link" data-contact-button>Reach out!</button>
+        </section>
+        <img src="./images/Chris-Hoofd.jpeg" alt="featured photo of Chris">
         <div>
-        <ul>
+          <ul>
             <li><a href="#intro-section">Start</a></li>
-            <li><a href="#discipline-section">categories</a></li>
+            {% comment %} <li><a href="#discipline-section">My disciplines</a></li> {% endcomment %}
             <li><a href="#featured-work-section">Featured Work</a></li>
             <li><a href="#expertises-section">My Expertises</a></li>
             <li><a href="#current-work-section">Current Projects</a></li>
-            <li><a href="#recommendations-section">Recommendations</a></li>
-        </ul>
+            {% comment %} <li><a href="#recommendations-section">Recommendations</a></li> {% endcomment %}
+          </ul>
 
-        <ul>
+          <ul>
             <li><a href="/work">My Work</a></li>
             <li><a href="/contact">Let's Connect</a></li>
-        </ul>
-      </div>
+          </ul>
+        </div>
+      </div>  
+        <hr>
+        <div>
+          <p>Copyright Chris 2025</p>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/chris-donker/"><img src="../../public/images/linkedin.png" alt="Logo of linkedin"></a></li>
+            <li><a href="https://github.com/Christian199815"><img src="../../public/images/Github.png" alt="Logo of Github"></a></li>
+          </ul>
+        </div>
     </footer>
 </body>
 </html>

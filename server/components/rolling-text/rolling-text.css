@@ -1,0 +1,206 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.text-container {
+    position: relative;
+    width: 200px;
+    height: .9em;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.word {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    /* font-size: 1.5rem; */
+    font-weight: bold;
+    backface-visibility: hidden;
+    transform-origin: center center -40px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.8s, transform 0.8s;
+}
+
+/* First container - Frontend/Game */
+.text-container:nth-child(1) .word:nth-child(1) {
+    animation: first-word 16s infinite;
+}
+
+.text-container:nth-child(1) .word:nth-child(2) {
+    animation: second-word 16s infinite;
+}
+
+/* Second container - Designer/Programmer */
+.text-container:nth-child(2) .word:nth-child(1) {
+    animation: third-word 16s infinite;
+}
+
+.text-container:nth-child(2) .word:nth-child(2) {
+    animation: fourth-word 16s infinite;
+}
+
+@keyframes first-word {
+    /* Frontend Designer */
+    0%, 20% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Frontend Programmer */
+    21%, 45% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Game Programmer */
+    46%, 49% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    50%, 70% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    
+    /* Game Designer */
+    71%, 95% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    
+    /* Return to Frontend Designer */
+    96%, 99% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes second-word {
+    /* Frontend Designer */
+    0%, 20% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    
+    /* Frontend Programmer */
+    21%, 45% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    
+    /* Game Programmer */
+    46%, 49% {
+        transform: rotateX(0deg);
+        opacity: 0;
+    }
+    50%, 70% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Game Designer */
+    71%, 95% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Return to Frontend Designer */
+    96%, 99% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes third-word {
+    /* Frontend Designer */
+    0%, 20% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Frontend Programmer */
+    21%, 24% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    25%, 45% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    
+    /* Game Programmer */
+    46%, 70% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    
+    /* Game Designer */
+    71%, 74% {
+        transform: rotateX(0deg);
+        opacity: 0;
+    }
+    75%, 95% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Return to Frontend Designer */
+    96%, 99% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fourth-word {
+    /* Frontend Designer */
+    0%, 20% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    
+    /* Frontend Programmer */
+    21%, 24% {
+        transform: rotateX(0deg);
+        opacity: 0;
+    }
+    25%, 45% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Game Programmer */
+    46%, 70% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+    
+    /* Game Designer */
+    71%, 95% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    
+    /* Return to Frontend Designer */
+    96%, 100% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+}

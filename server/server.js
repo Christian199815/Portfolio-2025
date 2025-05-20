@@ -4,8 +4,11 @@ import { Liquid } from 'liquidjs';
 import { log } from '../client/debug.js';
 import sirv from 'sirv';
 import fs from 'fs/promises';
+import dotenv from 'dotenv';
+dotenv.config();
+import { sendEmail, initializeTransporter, CONTACT_RECIPIENT } from './email.js';
 
-const _DebugBool = false;
+const _DebugBool = true;
 const _fileName = "server";
 
 // Configuration
@@ -44,6 +47,7 @@ query GetDetailPages {
         progress_body_text
         progress_content {
           duration
+          url
         }
       }
       project_quote
@@ -109,48 +113,45 @@ async function fetchFromPrepr(query, variables = {}) {
 }
 
 function ensureAbsolutePaths(project) {
-    // Deep clone the project
-    const clone = JSON.parse(JSON.stringify(project));
-    
-    // Debug log
-    log(_fileName, _DebugBool, `Processing project: ${clone.projectname}`);
-    log(_fileName, _DebugBool, `Original featured image: ${clone.projectFeaturedImage}`);
-    
-    // Fix featured image
-    if (clone.projectFeaturedImage && !clone.projectFeaturedImage.startsWith('http')) {
-      // Remove any leading ./ from paths
-      let path = clone.projectFeaturedImage.replace(/^\.\//, '');
-      
-      // Make sure the path is properly formatted
-      if (!path.startsWith('/')) {
-        path = '/' + path;
+  // Deep clone the project
+  const clone = JSON.parse(JSON.stringify(project));
+  
+  // Fix featured image
+  if (clone.projectFeaturedImage && !clone.projectFeaturedImage.startsWith('http')) {
+    // Always use absolute path from site root to public/images
+    let filename = clone.projectFeaturedImage.split('/').pop(); // Get just the filename
+    clone.projectFeaturedImage = `/public/images/${filename}`;
+    log(_fileName, _DebugBool, `Fixed featured image: ${clone.projectFeaturedImage}`);
+  }
+  
+  // Fix project images
+  if (Array.isArray(clone.projectImages)) {
+    clone.projectImages = clone.projectImages.map(img => {
+      if (img && !img.startsWith('http')) {
+        // Always use absolute path from site root to public/images
+        let filename = img.split('/').pop(); // Get just the filename
+        return `/public/images/${filename}`;
       }
-      
-      clone.projectFeaturedImage = path;
-      log(_fileName, _DebugBool, `Fixed featured image: ${clone.projectFeaturedImage}`);
-    }
-    
-    // Fix project images
-    if (Array.isArray(clone.projectImages)) {
-      clone.projectImages = clone.projectImages.map(img => {
-        if (img && !img.startsWith('http')) {
-          // Remove any leading ./ from paths
-          let path = img.replace(/^\.\//, '');
-          
-          // Make sure the path is properly formatted
-          if (!path.startsWith('/')) {
-            path = '/' + path;
+      return img;
+    });
+  }
+  
+  // Fix progress content URLs
+  if (Array.isArray(clone.projectProgress)) {
+    clone.projectProgress.forEach(progress => {
+      if (Array.isArray(progress.progressContent)) {
+        progress.progressContent.forEach(content => {
+          if (content.url && !content.url.startsWith('http')) {
+            // Always use absolute path from site root to public/images
+            let filename = content.url.split('/').pop(); // Get just the filename
+            content.url = `/public/images/${filename}`;
           }
-          
-          return path;
-        }
-        return img;
-      });
-      
-      log(_fileName, _DebugBool, `Fixed project images (first 2): ${clone.projectImages.slice(0, 2).join(', ')}`);
-    }
-    
-    return clone;
+        });
+      }
+    });
+  }
+  
+  return clone;
 }
 
 // Transform Prepr data from GraphQL
@@ -194,17 +195,27 @@ function transformPreprData(preprData) {
         
         return {
             id: project._id,
+            slug: project._slug, // Adding slug from query
             projectname: project.project_name,
             projectBodyText: project.project_body_text,
+            projectFeaturedText: project.project_featured_text, // Adding featured text
             projectFeaturedImage: project.project_featured_image?.url || '',
             projectImages: projectImages,
             category: project.project_categories,
             typeOfProject: project.project_types_select,
             typeOfProduct: project.project_products_select,
-            projectDate: project.project_date, // Just use the date directly
+            projectDate: project.project_date,
             projectLanguages: projectLanguages,
-            project_progress: projectProgress,
-            project_quote: project.project_quote,
+            projectProgress: project.project_progress?.map(progress => ({
+                progressName: progress.progress_name,
+                progressBodyText: progress.progress_body_text,
+                progressContent: Array.isArray(progress.progress_content) ? 
+                    progress.progress_content.map(content => ({
+                        duration: content.duration || null,
+                        url: content.url || null
+                    })) : []
+            })) || [],
+            projectQuote: project.project_quote,
             source: 'prepr'
         };
     });
@@ -257,20 +268,47 @@ function combineProjectData(preprData, localData) {
 }
 
 // Load all project data
+// Load all project data
 async function loadAllProjectData() {
     try {
-        const [preprResult, localResult] = await Promise.allSettled([
-            fetchFromPrepr(PROJECTS_QUERY).then(data => data ? transformPreprData(data) : null),
-            loadLocalJSON()
-        ]);
+        // First try to get data from Prepr
+        const preprData = await fetchFromPrepr(PROJECTS_QUERY)
+            .then(data => data ? transformPreprData(data) : null);
         
-        const preprData = preprResult.status === 'fulfilled' ? preprResult.value : null;
-        const localData = localResult.status === 'fulfilled' ? localResult.value : { projects: [] };
+        // If we got valid data from Prepr with at least one project, use only that
+        if (preprData && preprData.projects && preprData.projects.length > 0) {
+            log(_fileName, _DebugBool, `Successfully loaded ${preprData.projects.length} projects from Prepr`);
+            
+            // Clean up data - replace underscores with spaces
+            preprData.projects.forEach(project => {
+                if (project.category) {
+                    project.category = project.category.replace(/_/g, ' ');
+                }
+                if (project.typeOfProject) {
+                    project.typeOfProject = project.typeOfProject.replace(/_/g, ' ');
+                }
+                if (project.typeOfProduct) {
+                    project.typeOfProduct = project.typeOfProduct.replace(/_/g, ' ');
+                }
+                
+                // Ensure any project-specific transformations are applied
+                project.projectProgress = project.projectProgress || [];
+                project.projectLanguages = project.projectLanguages || [];
+                project.projectImages = project.projectImages || [];
+                project.projectFeaturedText = project.projectFeaturedText || '';
+                project.slug = project.slug || '';
+            });
+            
+            return preprData.projects;
+        }
         
-        const combinedData = combineProjectData(preprData, localData);
+        // If Prepr failed or returned no projects, fall back to local JSON
+        log(_fileName, _DebugBool, 'Prepr data unavailable or empty, falling back to local JSON');
+        const localData = await loadLocalJSON();
+        const localProjects = localData.projects || [];
         
         // Clean up data - replace underscores with spaces
-        combinedData.forEach(project => {
+        localProjects.forEach(project => {
             if (project.category) {
                 project.category = project.category.replace(/_/g, ' ');
             }
@@ -280,12 +318,19 @@ async function loadAllProjectData() {
             if (project.typeOfProduct) {
                 project.typeOfProduct = project.typeOfProduct.replace(/_/g, ' ');
             }
+            
+            // Ensure local projects have the same structure as Prepr projects
+            project.projectProgress = project.projectProgress || [];
+            project.projectLanguages = project.projectLanguages || [];
+            project.projectImages = project.projectImages || [];
+            project.projectFeaturedText = project.projectFeaturedText || '';
+            project.slug = project.slug || '';
         });
         
-        log(_fileName, _DebugBool, `Loaded ${combinedData.length} projects total`);
-        return combinedData;
+        log(_fileName, _DebugBool, `Loaded ${localProjects.length} projects from local JSON (fallback)`);
+        return localProjects;
     } catch (error) {
-        log(_fileName, _DebugBool, 'Error loading project data:' + error);
+        log(_fileName, _DebugBool, 'Error loading project data: ' + error);
         return [];
     }
 }
@@ -350,16 +395,43 @@ function uniqueValues(projects, prop) {
 async function setupMiddleware() {
   app.use(logger());
   
-  // Serve static files from the root
-//   app.use('/logo.svg', sirv('public', { dev: true }));
-//   app.use('/images', sirv('public/images', { dev: true }));
   app.use('/resources', sirv('public/resources', { dev: true }));
+  app.use('/project/images', sirv('public/images', { dev: true }));
   app.use('/public', sirv('public', { dev: true }));
   app.use('/', sirv('dist', { dev: true }));
 }
 
+  // Add JSON body parser for API routes
+  app.use((req, res, next) => {
+    if (req.headers['content-type'] === 'application/json') {
+      let body = '';
+      
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+      
+      req.on('end', () => {
+        try {
+          req.body = JSON.parse(body);
+          next();
+        } catch (error) {
+          res.status(400).json({ error: 'Invalid JSON' });
+        }
+      });
+    } else {
+      next();
+    }
+  });
+
 // Setup middleware
 setupMiddleware();
+
+try {
+  initializeTransporter();
+  log(_fileName, _DebugBool, 'Email service initialized successfully');
+} catch (error) {
+  log(_fileName, _DebugBool, `Failed to initialize email service: ${error.message}`);
+}
 
 // Start server
 app.listen(3000, () => console.log('Server available on http://localhost:3000'));
@@ -370,7 +442,7 @@ app.get('/', async (req, res) => {
   const randomProjects = getRandomProjects(projects, 3);
   const featuredProjects = getRandomProjects(projects, 3);
   const testProjects = projects.filter(project => 
-      project.typeOfProject?.toLowerCase().includes('school project'));
+      project.typeOfProject?.toLowerCase().includes('test project'));
   
   const imageStairs = randomProjects.map(project => ({
       src: project.projectFeaturedImage,
@@ -382,6 +454,18 @@ app.get('/', async (req, res) => {
       imageStairs: imageStairs,
       featuredProjects: featuredProjects,
       testProjects: testProjects,
+  }));
+});
+
+app.get('/about', async (req, res) => {
+  return res.send(renderTemplate('server/views/about/about.liquid', {
+    title: 'About'
+  }));
+});
+
+app.get('/contact', async (req, res) => {
+  return res.send(renderTemplate('server/views/contact/contact.liquid', {
+    title: 'Contact'
   }));
 });
 
@@ -419,22 +503,138 @@ app.get('/work', async (req, res) => {
 });
 
 app.get('/project/:id', async (req, res) => {
-  const id = req.params.id;
-  const projects = await loadAllProjectData();
-  const project = projects.find(p => p.id === id);
-  
-  if (!project) {
-    return res.status(404).send('Project not found');
+    const id = req.params.id;
+    const projects = await loadAllProjectData();
+    const project = projects.find(p => p.id === id);
+    
+    if (!project) {
+      return res.status(404).send('Project not found');
+    }
+    
+    // Add the progress check here
+    console.log(`Checking progress items for project: ${project.projectname}`);
+    
+    if (project.projectProgress && project.projectProgress.length > 0) {
+      console.log(`Found ${project.projectProgress.length} progress items`);
+      
+      // Loop through each progress item
+      project.projectProgress.forEach((progressItem, progressIndex) => {
+        console.log(`\nProgress Item #${progressIndex + 1}:`);
+        console.log('- Progress Name:', progressItem.progressName);
+        console.log('- Progress Body Text:', progressItem.progressBodyText);
+        
+        // Check for content items
+        if (progressItem.progressContent && Array.isArray(progressItem.progressContent) && progressItem.progressContent.length > 0) {
+          console.log(`  Found ${progressItem.progressContent.length} content items in this progress entry`);
+          
+          // Loop through all content items
+          progressItem.progressContent.forEach((contentItem, contentIndex) => {
+            console.log(`\n  Content Item #${contentIndex + 1}:`);
+            console.log('  Raw content item:', JSON.stringify(contentItem, null, 2));
+            
+            // Access specific properties dynamically
+            Object.keys(contentItem).forEach(key => {
+              console.log(`  - Property '${key}':`, typeof contentItem[key] === 'object' ? 
+                          JSON.stringify(contentItem[key], null, 2) : contentItem[key]);
+              
+              // If this is an image property, it might have a URL
+              if (contentItem[key] && typeof contentItem[key] === 'object' && contentItem[key].url) {
+                console.log(`    Image/Media URL:`, contentItem[key].url);
+              }
+            });
+          });
+        } else {
+          console.log('  No content items found in this progress entry');
+          console.log('  Raw progressContent:', JSON.stringify(progressItem.progressContent, null, 2));
+        }
+      });
+    } else {
+      console.log('No progress items found for this project');
+    }
+    
+    // Continue with the rest of your route handler
+    const fixedProject = ensureAbsolutePaths(project);
+    
+    return res.send(renderTemplate('server/views/project/project.liquid', {
+        title: `${project.projectname} - Project Detail`,
+        project: fixedProject,
+        formattedDate: formatDate(project.projectDate)
+    }));
+  });
+
+  // Contact form email route
+// Contact form email route
+// Contact form email route
+app.post('/api/send-contact-email', async (req, res) => {
+  try {
+    const { from, to, message } = req.body;
+    const recipient = to || CONTACT_RECIPIENT; 
+    
+    log(_fileName, _DebugBool, `Contact form submission - From: ${from}, To: ${recipient || 'NOT SET!'}`);
+    // Validate inputs
+    if (!from || !message) {
+      log(_fileName, _DebugBool, 'Missing required fields in contact form submission');
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Email address and message are required' 
+      });
+    }
+    
+    // Check for valid email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(from)) {
+      log(_fileName, _DebugBool, `Invalid email format: ${from}`);
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Invalid email format' 
+      });
+    }
+    
+    log(_fileName, _DebugBool, `Processing contact form: from=${from}, to=${recipient}`);
+    
+    // Send the email
+    await sendEmail({
+      to: recipient, // Make sure this is being passed correctly
+      replyTo: from,
+      subject: 'New Contact Form Submission',
+      // ...
+      text: `From: ${from}\n\nMessage: ${message}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333;">New Contact Form Submission</h2>
+          <p><strong>From:</strong> ${from}</p>
+          <div style="background-color: #f5f5f5; padding: 15px; border-left: 4px solid #4CAF50; margin: 20px 0;">
+            <p style="white-space: pre-wrap;">${message}</p>
+          </div>
+          <p style="color: #777; font-size: 12px;">This message was sent from your website's contact form.</p>
+        </div>
+      `
+    });
+    
+    log(_fileName, _DebugBool, 'Email sent successfully');
+    res.json({ success: true });
+  } catch (error) {
+    log(_fileName, _DebugBool, `Error in contact form submission: ${error.message}`);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to send email' 
+    });
   }
+});
+
+app.post('/api/send-contact-email', async (req, res) => {
+  console.log('======================================');
+  console.log('RECEIVED FORM SUBMISSION:');
+  console.log('Request body:', req.body);
+  console.log('Headers:', req.headers['content-type']);
+  console.log('======================================');
   
-  // Ensure all image paths are absolute
-  const fixedProject = ensureAbsolutePaths(project);
-  
-  return res.send(renderTemplate('server/views/project/project.liquid', {
-      title: `${project.projectname} - Project Detail`,
-      project: fixedProject,
-      formattedDate: formatDate(project.projectDate)
-  }));
+  try {
+    // Rest of your code...
+  } catch (error) {
+    console.error('Error processing form:', error);
+    res.status(500).json({ success: false, error: 'Failed to send email' });
+  }
 });
 
 // Render template helper

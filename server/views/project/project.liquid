@@ -11,49 +11,78 @@
         <span id="project-name">{{ project.projectname }}</span>
       </p>
     </div>
-    <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" id="featured-image">
-    {% if project.projectImages.size > 1 %}
-      <img src="{{ project.projectImages[1] }}" alt="{{ project.projectname }}" id="secondary-image">
-    {% endif %}
-    <a href="#project-gallery">See More</a>
   </section>
 
   <section id="project-info">
-    <p id="project-description">{{ project.projectBodyText | default: "Project description coming soon..." }}</p>
-    <ul id="project-languages-list">
-      {% for language in project.projectLanguages %}
-        {% render 'server/components/language-item.liquid', language: language %}
-      {% endfor %}
-    </ul>
+    <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" id="featured-image">
+    <div>
+      <p id="project-description">{{ project.projectBodyText | default: "Project description coming soon..." }}</p>
+      <ul id="project-languages-list">
+        {% for language in project.projectLanguages %}
+          {% render 'server/components/language-item/language-item.liquid', language: language %}
+        {% endfor %}
+      </ul>
+    </div>
+    
   </section>
 
+  {% if project.projectQuote %}
   <section id="project-quote">
-    <h2>Project quote</h2>
-    {% if project.project_quote %}
       <blockquote>
-        <p>{{ project.project_quote }}</p>
+        <h2>{{ project.projectQuote }}</h2>
       </blockquote>
-    {% else %}
-      <p>No quote available for this project.</p>
-    {% endif %}
   </section>
+{% endif %}
 
-  <section id="project-progress">
-    <h2>Progress</h2>
-    {% if project.project_progress %}
-      {% for progress in project.project_progress %}
-        <div class="progress-item">
-          <h3 class="progress-name">{{ progress.progress_name }}</h3>
-          <p class="progress-body">{{ progress.progress_body_text }}</p>
-          {% if progress.progress_content.duration %}
-            <p class="progress-duration">Duration: {{ progress.progress_content.duration }}</p>
+
+  {% if project.projectProgress.size > 0 %}
+    <section id="project-progress" class="project-progress">
+      <h2>Project Progress</h2>
+      
+      {% for progress in project.projectProgress %}
+        <article class="progress-item">
+          <h3>{{ progress.progressName }}</h3>
+          
+          {% if progress.progressBodyText %}
+            <p class="progress-body">
+              {{ progress.progressBodyText }}
+            </p>
           {% endif %}
-        </div>
+          
+          {% if progress.progressContent.size > 0 %}
+            <ul class="progress-content">
+              {% for content in progress.progressContent %}
+                <li class="content-item">
+                  {% if content.duration %}
+                    <p class="duration">
+                      <span>Duration: {{ content.duration }}</span>
+                    </p>
+                  {% endif %}
+                  
+                  {% if content.url %}
+                    <div class="content-media">
+                      {% assign url_extension = content.url | split: '.' | last | downcase %}
+                      
+                      {% if url_extension == 'jpg' or url_extension == 'jpeg' or url_extension == 'png' or url_extension == 'gif' or url_extension == 'webp' %}
+                        <img src="{{ content.url }}" alt="Progress media for {{ progress.progressName }}" />
+                      {% elsif url_extension == 'mp4' or url_extension == 'webm' or url_extension == 'mov' %}
+                        <video controls>
+                          <source src="{{ content.url }}" type="video/{{ url_extension }}">
+                          Your browser does not support video playback.
+                        </video>
+                      {% else %}
+                        <a href="{{ content.url }}" target="_blank" class="content-link">View Media</a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </article>
       {% endfor %}
-    {% else %}
-      <p>No progress information available for this project.</p>
-    {% endif %}
-  </section>
+    </section>
+  {% endif %}
 
   <section id="project-gallery">
     <h2>Image Gallery</h2>

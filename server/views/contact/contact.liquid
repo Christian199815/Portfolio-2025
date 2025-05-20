@@ -1,0 +1,54 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+
+<div class="page">
+    <div>
+        <h2>Let's Connect!</h2>
+        {% comment %} <h2>Contact </h2> {% endcomment %}
+        <p>Thank you for taking the time to visit my portfolio.
+            I hope it gave you a good impression of my skills, creativity, and the kind of work I enjoy doing. It means a lot that you explored what I’ve been working on, and I’m always open to new opportunities, collaborations, or just a friendly chat about shared interests.
+            I look forward to connecting with you—don’t hesitate to reach out!</p>
+            <hr>
+        {% comment %} <form data-form>
+            <div>
+                <label for="email">Email Address</label>
+                <input type="email" data-email name="email" required>
+            </div>
+
+            <div>
+                <label for="message">Message</label>
+                <textarea data-message name="message" required></textarea>
+            </div>
+                
+            <button type="submit" data-submit>Submit</button>
+                <div data-feedback></div>
+                <div data-captcha>
+                    <h3>Please verify you're not a robot</h3>
+                    <div data-captcha-box></div>
+                    <div>
+                        <label for="captchaInput">Enter the code above</label>
+                        <input type="text" data-captcha-input name="captchaInput">
+                    </div>
+                    <button type="button" data-verify>Verify</button>
+                </div>
+        </form> {% endcomment %}
+        <a href="mailto:cchdonkervault@gmail.com">Let's connect with me</a>
+    </div>
+        
+    <div>
+        <ul data-carousel>
+            <li data-slide class="active">
+                <img src="../../../public/images/Chris-Hoofd.jpeg" alt="Carousel image 1">
+            </li>
+            <li data-slide>
+                <img src="../../../public/images/img-placeholder.png" alt="Carousel image 2">
+            </li>
+            <li data-slide>
+                <img src="../../../public/images/Chris-Hoofd.jpeg" alt="Carousel image 3">
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

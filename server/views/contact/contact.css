@@ -1,0 +1,182 @@
+.page {
+    display: flex;
+    height: 100vh; /* Keeps the entire page at 100% viewport height */
+    width: 100%;
+    margin-top: 1.2em;
+
+  & > * {
+    padding: 40px;
+    flex: 1;
+  }
+
+  & > *:first-child {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+    & h2 {
+      margin-bottom: 20px;
+      font-size: 3rem;
+      color: #333;
+    }
+
+    & form {
+      width: 100%;
+      max-width: 500px;
+
+      & > div {
+        margin-bottom: 20px;
+      }
+
+      & label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      & input[type="email"],
+      & input[type="text"],
+      & textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      & textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      & button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+
+      & [data-captcha] {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+
+        &.visible {
+          display: block;
+        }
+
+        & [data-captcha-box] {
+          padding: 10px;
+          margin-bottom: 15px;
+          background-color: #e6e6e6;
+          text-align: center;
+          font-size: 18px;
+          letter-spacing: 2px;
+          font-weight: bold;
+          color: #333;
+          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          user-select: none;
+        }
+      }
+
+      & [data-feedback] {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 4px;
+        display: none;
+        
+        &.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        &.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        &.info {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+    }
+    }
+
+    > p{
+      font-size: 1.2rem;
+    }
+
+    > a{
+      border: 2px solid black;
+      border-radius: 25px;
+      padding: 1em;
+      width: fit-content
+    }
+  }
+
+  & > *:last-child {
+    overflow: hidden;
+    position: relative;
+    background-color: #333;
+    height: 80vh; /* Set the right column to 80% viewport height */
+
+    & [data-carousel] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; /* Make carousel use 100% of its container */
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      & [data-slide] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; /* Make slides use 100% of carousel height */
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+
+        &.active {
+          opacity: 1;
+        }
+
+        & img {
+          width: 100%;
+          height: 100%; /* Make images use 100% of slide height */
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+
+    & > *:last-child {
+      height: 300px; /* Fixed height for mobile view */
+    }
+  }
+}

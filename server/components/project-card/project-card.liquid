@@ -16,7 +16,7 @@
             <p class="product-type">{{ project.typeOfProduct }}</p>
         </div>
         <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" class="project-image">
-        <p class="project-date">{{ project.projectDate }}</p>
-        <p>View Project</p>
+        <p hidden class="project-date">{{ project.projectDate }}</p>
+        {% comment %} <p>View Project</p> {% endcomment %}
     </a>
 </li>

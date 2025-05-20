@@ -4,4 +4,5 @@
     border: 2px solid var(--link-border-color);
     border-radius: 25px;
     background: none;
+    cursor: pointer;
   }

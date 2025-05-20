@@ -1,8 +1,6 @@
 #disciplines-list {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
+
+    width: 50%;
     height: 30%;
 
     display: flex;
@@ -21,11 +19,9 @@
   }
 
 #discipline-highlighter {
-    position: absolute;
-    bottom: 0;
-    right: 0;
 
-    width: 60%;
+
+    width: 40%;
     height: 60%;
     object-fit: cover;
     /* aspect-ratio: 16 / 9; */
