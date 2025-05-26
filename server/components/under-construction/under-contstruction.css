@@ -1,0 +1,44 @@
+.construction-page{
+    height: 100dvh;
+    width: 100dvw;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    margin: auto;
+
+    background-color: rgb(190, 188, 188);
+
+    h2{
+        font-size: 2rem;
+        color: white;
+    }
+
+    p{
+        font-size: 1rem;
+    }
+
+    z-index: -1;
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+    body {
+        overflow: hidden; /* Prevents scrolling */
+        position: fixed; /* Locks the page in place */
+        width: 100%; /* Ensures the body covers the full width */
+        height: 100%; /* Ensures the body covers the full height */
+    }
+    
+    .construction-page {
+        display: block !important;
+        z-index: 9999;
+        position: fixed; /* Makes sure the construction page stays in view */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto; /* Allows scrolling within the construction page if needed */
+    }
+}

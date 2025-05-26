@@ -446,26 +446,49 @@ app.get('/', async (req, res) => {
   
   const imageStairs = randomProjects.map(project => ({
       src: project.projectFeaturedImage,
-      alt: project.projectname
+      alt: project.projectname,
+      link: "/project/" + project.id
   }));
   
+  // Get random project from each discipline category
+  const disciplineCategories = [
+    { name: 'Web Programming', key: 'web-programming' },
+    { name: 'Web Designing', key: 'web-design' },
+    { name: 'Game Programming', key: 'game-programming' },
+    { name: 'Game Designing', key: 'game-design' }
+  ];
+  const disciplineProjects = {};
+  
+  disciplineCategories.forEach(({ name, key }) => {
+    const categoryProjects = projects.filter(project => 
+      project.category?.toLowerCase() === name.toLowerCase() ||
+      project.typeOfProject?.toLowerCase() === name.toLowerCase()
+    );
+    
+    if (categoryProjects.length > 0) {
+      const randomIndex = Math.floor(Math.random() * categoryProjects.length);
+      disciplineProjects[key] = categoryProjects[randomIndex];
+    }
+  });
+  
   return res.send(renderTemplate('server/views/index.liquid', { 
-      title: 'Home',
+      title: 'Chris Donker Portfolio',
       imageStairs: imageStairs,
       featuredProjects: featuredProjects,
       testProjects: testProjects,
+      disciplineProjects: disciplineProjects,
   }));
 });
 
 app.get('/about', async (req, res) => {
   return res.send(renderTemplate('server/views/about/about.liquid', {
-    title: 'About'
+    title: 'About Chris'
   }));
 });
 
 app.get('/contact', async (req, res) => {
   return res.send(renderTemplate('server/views/contact/contact.liquid', {
-    title: 'Contact'
+    title: 'Contact Chris'
   }));
 });
 
@@ -489,7 +512,7 @@ app.get('/work', async (req, res) => {
   const projectTypes = uniqueValues(projects, 'typeOfProject');
   
   return res.send(renderTemplate('server/views/work/work.liquid', {
-      title: 'Work',
+      title: `Chris' Work`,
       projects: filteredProjects,
       categories: categories,
       productTypes: productTypes,

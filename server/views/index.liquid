@@ -5,9 +5,11 @@
 <section id="intro-section">
   <ul class="image-stairs" id="image-stairs">
     {% for stair in imageStairs %}
-    <li>
-      <img src="{{ stair.src }}" alt="{{ stair.alt }}" />
-    </li>
+      <li>
+        <a href="{{ stair.link }}">
+         <img src="{{ stair.src }}" alt="{{ stair.alt }}" />
+        </a>
+      </li>
     {% endfor %}
   </ul>
   <article>
@@ -24,7 +26,7 @@
 <section id="discipline-section">
 
   <!-- Discpline links, hover to change image -->
-  {% render '../components/discipline-links/discipline-links.liquid' %}
+  {% render '../components/discipline-links/discipline-links.liquid', disciplineProjects: disciplineProjects %}
   {% comment %} {% render '../components/contact-button/contact-button.liquid' %} {% endcomment %}
 </section>
 
@@ -164,4 +166,9 @@
   </div>
 </section> {% endcomment %}
 
+{% render '../components/under-construction/under-construction.liquid' %}
+
+<script>
+  window.disciplineProjects = {{ disciplineProjects | json }};
+</script>
 {% endblock %}

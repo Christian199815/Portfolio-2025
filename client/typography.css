@@ -7,13 +7,18 @@ body {
   font-family: "DM Sans", sans-serif;
   font-size: 1.5rem;
   margin-bottom: 10px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .h2 {
   font-family: "DM Sans", sans-serif;
   font-size: 1.25rem;
   margin-bottom: 10px;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+p{
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  line-height: 1.25;
 }
 

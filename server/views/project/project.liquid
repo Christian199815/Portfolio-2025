@@ -64,7 +64,7 @@
                       {% assign url_extension = content.url | split: '.' | last | downcase %}
                       
                       {% if url_extension == 'jpg' or url_extension == 'jpeg' or url_extension == 'png' or url_extension == 'gif' or url_extension == 'webp' %}
-                        <img src="{{ content.url }}" alt="Progress media for {{ progress.progressName }}" />
+                        <img src="{{ content.url }}" alt="Progress media for {{ progress.progressName }}" data-pop-image/>
                       {% elsif url_extension == 'mp4' or url_extension == 'webm' or url_extension == 'mov' %}
                         <video controls>
                           <source src="{{ content.url }}" type="video/{{ url_extension }}">
@@ -84,6 +84,7 @@
     </section>
   {% endif %}
 
+    {% if project.projectImages > 0 %}
   <section id="project-gallery">
     <h2>Image Gallery</h2>
     <div id="gallery-images">
@@ -92,5 +93,9 @@
       {% endfor %}
     </div>
   </section>
+    {% endif %}
 </section>
+
+{% render '../../components/under-construction/under-construction.liquid' %}
+
 {% endblock %}

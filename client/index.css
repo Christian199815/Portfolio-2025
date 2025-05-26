@@ -17,6 +17,7 @@
 @import '../server/components/contact-button/contact-button.css';
 @import '../server/components/discipline-links/discipline-links.css';
 @import '../server/components/rolling-text/rolling-text.css';
+@import '../server/components/under-construction/under-contstruction.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
@@ -55,3 +56,91 @@
     grid-area: 2 / 2 / 3 / 3;
   }
 }
+
+
+/* #region popover class */
+
+/**
+ * image-popover.css
+ * Styles for the image popover functionality
+ */
+
+ .image-popover-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-popover-container {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: popoverFadeIn 0.3s ease forwards;
+}
+
+.image-popover-container img {
+  display: block;
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.image-popover-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.2s ease;
+}
+
+.image-popover-close:hover {
+  background-color: #f0f0f0;
+}
+
+.image-popover-close::before,
+.image-popover-close::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 2px;
+  background-color: #333;
+}
+
+.image-popover-close::before {
+  transform: rotate(45deg);
+}
+
+.image-popover-close::after {
+  transform: rotate(-45deg);
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* #endregion */

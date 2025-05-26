@@ -6,6 +6,7 @@ section {
 
 
 .image-stairs{
+
   list-style: none;
   display:flex;
   flex-direction: row;
@@ -17,7 +18,6 @@ section {
 
   height: 60%;
   
-  
   li{
     --width: 28vw;
     
@@ -28,7 +28,7 @@ section {
     background-size: cover;
     background-position: center;
 
-    img{
+     a img{
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -185,7 +185,7 @@ section {
 
 #expertises-section {
   scroll-margin-top: 50px;
-  height: calc(100vw * 0.257 + 142px);
+  height: auto;
   position: relative;
 
   display: flex;

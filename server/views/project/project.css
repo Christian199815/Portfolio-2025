@@ -57,9 +57,10 @@
     }
     #project-info {
       display: flex;
+      justify-content: space-between;
       
       >img {
-        width: 100%;
+        width: 50%;
         aspect-ratio: 1;
         object-fit: cover;
   
@@ -68,26 +69,30 @@
       div{
         display: flex;
         flex-direction: column;
+        width: 40%;
+
         p{
-          width: 60%;
+          width: 100%;
+          margin-bottom: 2rem;
         }
         ul {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           flex-wrap: wrap;
           /* justify-content: space-between; */
-          row-gap: 2em;
+          gap: 2em;
     
           li {
-            width: 40%;
-    
-            background-color: lightgreen;
+            width: fit-content;
+            height: 1em;
+            color: white;
+            background-color: rgb(95, 181, 224);
             border-radius: 25px;
     
             padding: 1em;
-            img {
+            /* img {
               width: 10%;
-            }
+            } */
           }
         }
 
@@ -100,8 +105,8 @@
     #project-quote {
       display: grid;
       place-content: center;
-      height: 35vw;
-  
+      height: auto;
+      padding: 2rem 0;
       margin-left: -2em;
       margin-right: -2em;
       width: calc(100% + (2 * 2em));
@@ -109,7 +114,8 @@
       background-color: lightblue;
   
       blockquote h2 {
-        font-size: 3em;
+        padding: 2rem;
+        font-size: 2vw;
       }
     }
   
@@ -118,11 +124,14 @@
       flex-direction: column;
       gap: 3em;
 
+      margin-bottom: 2rem;
+
       h2 {
         font-size: 3em;
         margin-bottom: 2rem;
 
       }
+    
   
       article {
         display: grid;
@@ -156,13 +165,15 @@
           gap: 1rem;
           margin-top: 1rem;
           height: 200px;
+          justify-content: center;
+          align-items: center;
 
           li{
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            max-height: 90%;
-            aspect-ratio: 9 / 16;
+            /* max-height: 90%; */
+            /* aspect-ratio: 9 / 16; */
 
             img {
               width: 100%;
@@ -195,8 +206,11 @@
   }
 
   #project-gallery {
+    margin-bottom: 2rem;
+
     h2 {
       font-size: 3em;
+      margin-bottom: .5rem;
     }
 
     div {

@@ -13,7 +13,7 @@
   {% block scripts %}{% endblock %}
 </head>
 
-<body>
+<body data-auto-init-popovers>
   <nav>
       <!-- Logo -->
       <a href="/"><img src="../../public/images/Chris.svg" alt="name logo of Chris" /></a>
@@ -37,11 +37,11 @@
         <img src="./images/Chris-Hoofd.jpeg" alt="featured photo of Chris">
         <div>
           <ul>
-            <li><a href="#intro-section">Start</a></li>
+            <li><a href="/#intro-section">Start</a></li>
             {% comment %} <li><a href="#discipline-section">My disciplines</a></li> {% endcomment %}
-            <li><a href="#featured-work-section">Featured Work</a></li>
-            <li><a href="#expertises-section">My Expertises</a></li>
-            <li><a href="#current-work-section">Current Projects</a></li>
+            <li><a href="/#featured-work-section">Featured Work</a></li>
+            <li><a href="/#expertises-section">My Expertises</a></li>
+            <li><a href="/#current-work-section">Current Projects</a></li>
             {% comment %} <li><a href="#recommendations-section">Recommendations</a></li> {% endcomment %}
           </ul>
 
@@ -55,10 +55,11 @@
         <div>
           <p>Copyright Chris 2025</p>
           <ul>
-            <li><a href="https://www.linkedin.com/in/chris-donker/"><img src="../../public/images/linkedin.png" alt="Logo of linkedin"></a></li>
-            <li><a href="https://github.com/Christian199815"><img src="../../public/images/Github.png" alt="Logo of Github"></a></li>
+            <li><a href="https://www.linkedin.com/in/chris-donker/" target="_blank"><img src="../../public/images/linkedin.png" alt="Logo of linkedin"></a></li>
+            <li><a href="https://github.com/Christian199815" target="_blank"><img src="../../public/images/Github.png" alt="Logo of Github"></a></li>
           </ul>
         </div>
     </footer>
+
 </body>
 </html>

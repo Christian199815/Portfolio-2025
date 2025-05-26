@@ -1,43 +1,51 @@
-const disciplineImages = {
-    'web-programming': '../../../public/images/web-programming.png',
-    'web-design': '../../../public/images/image-placeholder.png',
-    'game-programming': '../../../public/images/game-programming.png',
-    'game-design': '../../../public/images/image-placeholder.png'
-};
-
-
 import { getElement } from "../../../client/document";
-
 
 function setupDisciplineHover() {
     const disciplinesList = getElement('[data-disciplines-list]');
-    const disciplineImage = getElement('[data-highlight-image]');
+    const disciplineHighlighter = getElement('[data-highlight-image]');
+    const disciplineImageLink = getElement('#discipline-image-link');
     
-    if (!disciplinesList || !disciplineImage) return;
+    if (!disciplinesList || !disciplineHighlighter) return;
     
     const disciplineItems = disciplinesList.getElementsByTagName('li');
     
-    Array.from(disciplineItems).forEach(li => {
+    // Get discipline projects data (assuming it's available globally or passed in)
+    // You might need to pass this data from the server or make it available globally
+    const disciplineProjectsData = window.disciplineProjects || {};
+    
+    Array.from(disciplineItems).forEach((li, index) => {
         const link = li.querySelector('a');
-        const disciplineName = link.querySelector('p').textContent.toLowerCase().replace(/\s+/g, '-');
+        const disciplineKey = link.dataset.discipline;
         
-        // Set initial image if it's the first item
-        if (li === disciplineItems[0]) {
-            link.dataset.hoverImage = disciplineImages[disciplineName] || '../../../public/images/img-placeholder.png';
-            disciplineImage.src = link.dataset.hoverImage;
-        } else {
-            link.dataset.hoverImage = disciplineImages[disciplineName] ||  '../../../public/images/img-placeholder.png';
+        // Set initial state for first item
+        if (index === 0 && disciplineProjectsData[disciplineKey]) {
+            updateDisciplineImage(disciplineProjectsData[disciplineKey]);
         }
         
         li.addEventListener('mouseenter', () => {
-            disciplineImage.src = link.dataset.hoverImage;
-        });
-        
-        li.addEventListener('mouseleave', () => {
-            // Optional: Reset to default image when not hovering
-            // disciplineImage.src = './img-placeholder.png';
+            const project = disciplineProjectsData[disciplineKey];
+            if (project) {
+                updateDisciplineImage(project);
+            } else {
+                // Show placeholder if no project available
+                updateDisciplineImage(null);
+            }
         });
     });
+    
+    function updateDisciplineImage(project) {
+        if (project) {
+            disciplineHighlighter.innerHTML = `
+                <a href="/project/${project.id}" id="discipline-image-link">
+                    <img src="${project.projectFeaturedImage}" alt="${project.projectname}" />
+                </a>
+            `;
+        } else {
+            disciplineHighlighter.innerHTML = `
+                <img src="../../../public/images/image-placeholder.png" alt="No project available" />
+            `;
+        }
+    }
 }
 
 setupDisciplineHover();
