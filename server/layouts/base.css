@@ -60,6 +60,7 @@ footer {
   margin-right: calc(-1 * clamp(1em, 3vw, 2em));
   padding-left: clamp(1em, 3vw, 2em);
   padding-right: clamp(1em, 3vw, 2em);
+  margin-top: 2rem;
   background-color: #ededed; /* Add your desired background color here */
   width: auto; /* Override your existing width: 1 which appears to be incomplete */
 

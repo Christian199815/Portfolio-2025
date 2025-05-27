@@ -87,7 +87,7 @@
             height: 1em;
             color: white;
             background-color: rgb(95, 181, 224);
-            border-radius: 25px;
+            border-radius: 15px;
     
             padding: 1em;
             /* img {
@@ -96,13 +96,22 @@
           }
         }
 
+        blockquote h2 {
+        padding: 2rem;
+        font-size: 2vw;
+        background-color: lightblue;
+        border-radius: 25px;
+        margin-top: 2rem;
+
+        }
+
       }
   
   
      
     }
   
-    #project-quote {
+    /* #project-quote {
       display: grid;
       place-content: center;
       height: auto;
@@ -113,11 +122,8 @@
   
       background-color: lightblue;
   
-      blockquote h2 {
-        padding: 2rem;
-        font-size: 2vw;
-      }
-    }
+
+    } */
   
     #project-progress {
       display: flex;

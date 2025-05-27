@@ -1,14 +1,10 @@
-
-
 section {
   /* border: 1px solid red; */
 }
 
-
-.image-stairs{
-
+.image-stairs {
   list-style: none;
-  display:flex;
+  display: flex;
   flex-direction: row;
   gap: 2em;
   justify-content: space-between;
@@ -17,55 +13,53 @@ section {
   margin-top: 2em;
 
   height: 60%;
-  
-  li{
+
+  li {
     --width: 28vw;
-    
-    background-color: green;
+
+    /* background-color: green; */
     width: var(--width);
     height: var(--height);
-    
+
     background-size: cover;
     background-position: center;
+    border-radius: 15px;
 
-     a img{
+    a img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 25px;
     }
   }
-  
-  li:nth-of-type(1){
+
+  li:nth-of-type(1) {
     /* --height: calc(var(--width) * 0.75); */
     height: 60%;
   }
-  
-  li:nth-of-type(2){
+
+  li:nth-of-type(2) {
     /* --height: var(--width); */
     height: 85%;
   }
-  
-  li:nth-of-type(3){
-   /* --height: calc(var(--width) * 1.25); */
-   height: 100%;
+
+  li:nth-of-type(3) {
+    /* --height: calc(var(--width) * 1.25); */
+    height: 100%;
   }
-
-
 }
 
-[data-first-step], [data-second-step], [data-third-step] {
+[data-first-step],
+[data-second-step],
+[data-third-step] {
   transition: opacity 0.5s ease-in-out;
 }
-
-
-
 
 #intro-section {
   position: relative;
   height: calc(100vw * 0.246 + 228px);
 
   article {
-
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 0.2fr;
@@ -78,7 +72,7 @@ section {
       grid-area: 1 / 1 / 3 / 2;
     }
 
-    >p {
+    > p {
       grid-area: 1 / 2 / 2 / 3;
       width: 100%;
       margin-top: 1.6rem;
@@ -108,8 +102,6 @@ section {
     left: 0;
     width: 35%;
   }
-
-  
 
   > button {
     position: absolute;
@@ -149,36 +141,36 @@ section {
     gap: 1rem;
 
     li {
-      a{
-      border-bottom: 1px solid var(--link-border-color);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 1em;
-      > div {
-        width: 40%;
+      a {
+        border-bottom: 1px solid var(--link-border-color);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1em;
+        > div {
+          width: 40%;
 
-        h3{
-          font-size: 2.4em;
-          margin-bottom: .3em;
+          h3 {
+            font-size: 2.4em;
+            margin-bottom: 0.3em;
+          }
+
+          > p {
+            font-size: 1em;
+          }
         }
 
-        >p{
-          font-size: 1em;
+        img {
+          width: 23%;
+          /* height: 100%; */
+          object-fit: cover;
+        }
+
+        p {
+          font-size: 0.9em;
         }
       }
-
-      img {
-        width: 23%;
-        /* height: 100%; */
-        object-fit: cover;
-      }
-
-      p{
-        font-size: .9em;
-      }
-    }
     }
   }
 }
@@ -206,8 +198,6 @@ section {
       margin-top: 1rem;
       margin-bottom: 1rem;
     }
-
-
   }
 
   > ul {
@@ -226,6 +216,192 @@ section {
   h2 {
     font-size: 4em;
   }
+
+  .carousel-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: visible;
+    padding: 60px 0;
+  }
+
+  .carousel-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 400px;
+    position: relative;
+    width: 100%;
+  }
+
+  [data-slide] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Project link styling */
+  [data-slide] .project-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+
+  [data-slide] img {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  [data-slide] .project-title {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  /* Active slide styling */
+  [data-slide].active {
+    z-index: 3 !important;
+    opacity: 1 !important;
+  }
+
+  /* Hover effects for ACTIVE slides only */
+  [data-slide].active .project-link:hover {
+    transform: translateY(-5px);
+  }
+
+  [data-slide].active .project-link:hover img {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+
+  [data-slide].active .project-link:hover .project-title {
+    color: #0066cc;
+    transform: translateY(-2px);
+  }
+
+  /* Add a subtle glow effect on hover for active items */
+  [data-slide].active .project-link:hover::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(
+      45deg,
+      rgba(0, 102, 204, 0.1),
+      rgba(0, 102, 204, 0.05)
+    );
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    animation: glowIn 0.3s ease forwards;
+  }
+
+  @keyframes glowIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Non-active slides styling */
+  [data-slide]:not(.active) {
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  [data-slide]:not(.active) img {
+    filter: grayscale(30%) brightness(0.8);
+  }
+
+  [data-slide]:not(.active) .project-title {
+    opacity: 0.7;
+  }
+
+  /* Disable pointer events on non-active slides to prevent accidental clicks */
+  [data-slide]:not(.active) .project-link {
+    pointer-events: none;
+  }
+
+  /* Rest of your carousel controls CSS remains the same */
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  .prev-slide,
+  .next-slide {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 12px 16px;
+    color: #333;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .prev-slide:hover,
+  .next-slide:hover {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0 20px;
+  }
+
+  .dot {
+    height: 12px;
+    width: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dot:hover {
+    background-color: #888;
+    transform: scale(1.1);
+  }
+
+  .dot.active {
+    background-color: #0066cc;
+    transform: scale(1.2);
+  }
 }
 #recommendations-section {
   height: calc(100vw * 0.102 + 304px);
@@ -234,87 +410,6 @@ section {
     font-size: 2em;
   }
 }
-
-
-
-.carousel-container {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.carousel-track {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-}
-
-[data-slide] {
-  flex: 0 0 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  /* height: 200px; */
-  object-fit: contain;
-
-
-  img {
-    width: 30%;
-    /* height: auto; */
-    display: block;
-    margin: auto;
-  }
-}
-
-[data-slide].active {
-  opacity: 1;
-  position: relative;
-}
-
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.prev-slide, .next-slide {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 10px;
-  color: #333;
-}
-
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  margin: 0 15px;
-}
-
-.dot {
-  height: 10px;
-  width: 10px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.dot.active {
-  background-color: #555;
-}
-
-
 
 .project-title {
   text-align: center;
@@ -329,7 +424,6 @@ section {
   border-radius: 8px;
   margin: 10px 0;
 }
-
 
 #category-filter:not([value=""]) {
   background-color: #e8f4f8;

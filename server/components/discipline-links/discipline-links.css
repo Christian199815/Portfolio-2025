@@ -20,12 +20,28 @@
 
 #discipline-highlighter {
     width: 40%;
-    height: 60%;
+    height: 90%;
+    border-radius: 12px; /* Add rounded corners to the container */
+    overflow: hidden; /* Ensure content stays within rounded bounds */
+}
 
-    #discipline-image-link{
-      width: 100%;
-      height: 100%;
+#discipline-image-link {
+    width: 100%;
+    height: 100%;
+    display: block; /* Ensure the link takes full dimensions */
+}
+
+#discipline-image-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintains aspect ratio while filling the container */
+    border-radius: 12px; /* Add rounded corners to the image */
+}
+
+/* For the fallback image when no project is available */
+#discipline-highlighter img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-
-    }
-  }
+    border-radius: 12px;
+}

@@ -22,22 +22,21 @@
           {% render 'server/components/language-item/language-item.liquid', language: language %}
         {% endfor %}
       </ul>
+      {% if project.projectQuote %}
+        <blockquote>
+          <h2>{{ project.projectQuote }}</h2>
+        </blockquote>
+      {% endif %}
+
     </div>
     
   </section>
 
-  {% if project.projectQuote %}
-  <section id="project-quote">
-      <blockquote>
-        <h2>{{ project.projectQuote }}</h2>
-      </blockquote>
-  </section>
-{% endif %}
 
 
   {% if project.projectProgress.size > 0 %}
     <section id="project-progress" class="project-progress">
-      <h2>Project Progress</h2>
+      <h2>Project Content</h2>
       
       {% for progress in project.projectProgress %}
         <article class="progress-item">
@@ -84,7 +83,7 @@
     </section>
   {% endif %}
 
-    {% if project.projectImages > 0 %}
+    {% if project.projectImages > 1 %}
   <section id="project-gallery">
     <h2>Image Gallery</h2>
     <div id="gallery-images">

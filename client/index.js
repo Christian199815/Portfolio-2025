@@ -7,6 +7,8 @@ import '../server/views/about/about.js';
 import '../server/views/contact/contact.js';
 import '../server/views/index.js';
 
+import '../server/views/project/project.js';
+
 import '../server/image-pop.js';
 
 console.log('Hello, world!');
