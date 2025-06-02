@@ -27,6 +27,9 @@
           <h2>{{ project.projectQuote }}</h2>
         </blockquote>
       {% endif %}
+      {%  if project.link %} 
+        <a href="{{ project.link }}" target="_blank">More Information</a>
+      {% endif %}
 
     </div>
     
@@ -83,7 +86,7 @@
     </section>
   {% endif %}
 
-    {% if project.projectImages > 1 %}
+    {% if project.projectImages > 0 %}
   <section id="project-gallery">
     <h2>Image Gallery</h2>
     <div id="gallery-images">

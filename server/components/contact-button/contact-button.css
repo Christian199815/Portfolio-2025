@@ -5,4 +5,11 @@
     border-radius: 25px;
     background: none;
     cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+
+  .contact-link:hover{
+    background-color: black;
+    color: white
   }

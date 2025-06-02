@@ -51,6 +51,7 @@ query GetDetailPages {
         }
       }
       project_quote
+      project_link
     }
   }
 }
@@ -216,6 +217,7 @@ function transformPreprData(preprData) {
                     })) : []
             })) || [],
             projectQuote: project.project_quote,
+            link: project.project_link,
             source: 'prepr'
         };
     });
@@ -297,6 +299,7 @@ async function loadAllProjectData() {
                 project.projectImages = project.projectImages || [];
                 project.projectFeaturedText = project.projectFeaturedText || '';
                 project.slug = project.slug || '';
+                project.project_link = project.project_link || '';
             });
             
             return preprData.projects;
