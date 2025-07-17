@@ -1,8 +1,8 @@
 .contact-link {
-    width: 40%;
+    width: fit-content;
     padding: 0.5em 1em;
     border: 2px solid var(--link-border-color);
-    border-radius: 25px;
+    border-radius: 5rem;
     background: none;
     cursor: pointer;
     background-color: transparent;

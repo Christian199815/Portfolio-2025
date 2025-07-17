@@ -23,22 +23,22 @@
 }
 
 
-@media (max-width: 768px) {
+/* @media (max-w) {
     body {
-        overflow: hidden; /* Prevents scrolling */
-        position: fixed; /* Locks the page in place */
-        width: 100%; /* Ensures the body covers the full width */
-        height: 100%; /* Ensures the body covers the full height */
+        overflow: hidden; 
+        position: fixed;
+        width: 100%; 
+        height: 100%;
     }
     
     .construction-page {
         display: block !important;
         z-index: 9999;
-        position: fixed; /* Makes sure the construction page stays in view */
+        position: fixed; 
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        overflow-y: auto; /* Allows scrolling within the construction page if needed */
+        overflow-y: auto; 
     }
-}
+} */
