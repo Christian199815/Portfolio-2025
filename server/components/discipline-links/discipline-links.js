@@ -3,7 +3,6 @@ import { getElement } from "../../../client/document";
 function setupDisciplineHover() {
     const disciplinesList = getElement('[data-disciplines-list]');
     const disciplineHighlighter = getElement('[data-highlight-image]');
-    const disciplineImageLink = getElement('#discipline-image-link');
     
     if (!disciplinesList || !disciplineHighlighter) return;
     
@@ -36,16 +35,27 @@ function setupDisciplineHover() {
     function updateDisciplineImage(project) {
         if (project) {
             disciplineHighlighter.innerHTML = `
-                <a href="/project/${project.id}" id="discipline-image-link">
-                    <img src="${project.projectFeaturedImage}" alt="${project.projectname}" />
+                <a href="/project/${project.id}" id="discipline-image-link" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;">
+                    <img src="${project.projectFeaturedImage}" alt="${project.projectname}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
                 </a>
             `;
         } else {
             disciplineHighlighter.innerHTML = `
-                <img src="../../../public/images/image-placeholder.png" alt="No project available" />
+                <img src="../../../public/images/image-placeholder.png" alt="No project available" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
             `;
         }
     }
 }
 
-setupDisciplineHover();
+// Wait for DOM to be ready and disciplineProjects to be available
+function initializeDisciplineLinks() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(setupDisciplineHover, 100);
+        });
+    } else {
+        setTimeout(setupDisciplineHover, 100);
+    }
+}
+
+initializeDisciplineLinks();

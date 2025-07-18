@@ -13,6 +13,7 @@
       margin-bottom: 30px;
       gap: 20px;
       flex-wrap: wrap;
+      color: #333;
     
     
       .filters, .sort-options {
@@ -26,6 +27,7 @@
           border-radius: 4px;
           background-color: white;
           cursor: pointer;
+          color: #333;
         }
     
         button {
