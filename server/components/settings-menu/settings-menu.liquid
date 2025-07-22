@@ -1,11 +1,7 @@
 <!-- Settings Menu Trigger Bar -->
 <div class="settings-trigger">
   <div class="settings-trigger-bar" data-settings-trigger>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M12 1v6m0 6v6"/>
-      <path d="m21 12-6-3-6 3-6-3"/>
-    </svg>
+    <img src="/public/images/settings.svg" alt="settings-tab">
   </div>
 </div>
 
@@ -20,7 +16,7 @@
     </button>
     
     <div class="setting-item">
-      <label for="theme-setting">Theme</label>
+      {% comment %} <label for="theme-setting">Theme</label> {% endcomment %}
       <div class="theme-options">
         {% render '../theme-toggle/theme-toggle.liquid' %}
         <span class="theme-label" data-theme-label>Light</span>

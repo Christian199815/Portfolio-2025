@@ -1,6 +1,6 @@
 /* Settings Trigger Bar */
 .settings-trigger {
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 15%;
   z-index: 1000;
@@ -32,10 +32,18 @@
   transform: translateX(-5px);
 }
 
+.settings-trigger-bar img {
+  transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] .settings-trigger-bar img {
+  filter: invert(1);
+}
+
 /* Settings Menu Panel */
 .settings-menu {
   position: fixed;
-  right: -300px;
+  right: -310px;
   top: 15%;
   height: auto;
   max-height: calc(85vh - 20px);
@@ -85,9 +93,6 @@
   background: var(--bg-hover-color);
 }
 
-.setting-item {
-  margin-bottom: 20px;
-}
 
 .setting-item label {
   display: block;

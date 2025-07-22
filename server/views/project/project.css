@@ -436,6 +436,16 @@
   }
 }
 
+/* Prevent progress block images from being inverted in dark mode */
+[data-theme="dark"] #project-progress article ul li img {
+  filter: none !important;
+}
+
+/* Keep progress block text dark even in dark mode */
+[data-theme="dark"] #project-progress article {
+  color: #333333;
+}
+
 /* Tablet Styles (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   #project {
