@@ -1,0 +1,31 @@
+<!-- Settings Menu Trigger Bar -->
+<div class="settings-trigger">
+  <div class="settings-trigger-bar" data-settings-trigger>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 1v6m0 6v6"/>
+      <path d="m21 12-6-3-6 3-6-3"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Settings Menu Panel -->
+<div class="settings-menu" data-settings-menu>
+  <div class="settings-menu-content">
+    <button class="settings-close" data-settings-close aria-label="Close settings">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    
+    <div class="setting-item">
+      <label for="theme-setting">Theme</label>
+      <div class="theme-options">
+        {% render '../theme-toggle/theme-toggle.liquid' %}
+        <span class="theme-label" data-theme-label>Light</span>
+      </div>
+    </div>
+  </div>
+</div>
+

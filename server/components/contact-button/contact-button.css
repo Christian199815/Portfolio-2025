@@ -7,10 +7,10 @@
     cursor: pointer;
     background-color: transparent;
     transition: background-color 0.3s ease;
-    color: #333333;
+    color: var(--text-secondary);
   }
 
   .contact-link:hover{
-    background-color: black;
-    color: white
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-text-color)
   }
