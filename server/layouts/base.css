@@ -82,6 +82,10 @@ a{
 }
 
 
+html{
+  overflow-x: hidden;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -95,6 +99,7 @@ body {
   box-sizing: border-box;
 
   margin: 0;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;
@@ -169,6 +174,8 @@ footer {
 
   hr{
     margin-top: 4rem;
+    width: 100%;
+    color: #fafafa73;
   }
   >div:nth-of-type(2){
     width: 100%;
