@@ -14,7 +14,6 @@
 
     & > *:first-child {
         padding: 40px;
-        background-color: white;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -23,7 +22,7 @@
         & h2 {
             margin-bottom: 20px;
             font-size: 3rem;
-            color: #333;
+            color: var(--text-color);
         }
 
         & > p {
@@ -32,17 +31,17 @@
         }
 
         & > a {
-            border: 2px solid black;
+            border: 2px solid var(--text-color);
             border-radius: 25px;
             padding: 1em;
             width: fit-content;
             text-decoration: none;
-            color: black;
+            color: var(--text-color);
             transition: all 0.3s ease;
 
             &:hover {
-                background-color: black;
-                color: white;
+                background-color: var(--text-color);
+                color: var(--bg-color);
             }
         }
     }
@@ -137,4 +136,22 @@
             flex: none;
         }
     }
+}
+
+/* Form elements dark mode support */
+form input,
+form textarea {
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+form button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--border-color);
+}
+
+form button:hover {
+    background-color: var(--button-hover-bg-color);
 }
