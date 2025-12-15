@@ -1,4 +1,4 @@
-import { getAllElement, getElement } from "../../client/document";
+import { getAllElement, getElement, announceToScreenReader } from "../../client/document";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showSlide(index) {
         if (dots[currentSlide]) {
             dots[currentSlide].classList.remove('active');
+            dots[currentSlide].setAttribute('aria-selected', 'false');
         }
         
         currentSlide = index;
@@ -55,8 +56,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateSlidePositions();
         
+        // Update ARIA labels for slides
+        slides.forEach(function(slide, i) {
+            slide.setAttribute('aria-label', `Slide ${i + 1} of ${slides.length}`);
+        });
+        
         if (dots[currentSlide]) {
             dots[currentSlide].classList.add('active');
+            dots[currentSlide].setAttribute('aria-selected', 'true');
+        }
+        
+        // Get current project name for announcement
+        const currentSlideEl = slides[currentSlide];
+        const projectTitle = currentSlideEl?.querySelector('.project-title, h3')?.textContent;
+        if (projectTitle) {
+            announceToScreenReader(`Slide ${currentSlide + 1} of ${slides.length}: ${projectTitle}`);
         }
     }
     
@@ -121,7 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoplay();
     }
     
-    startAutoplay();
+    // Only autoplay if user doesn't prefer reduced motion
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        startAutoplay();
+    }
     
     if(carousel){
         carousel.addEventListener('mouseenter', function() {
@@ -129,7 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         carousel.addEventListener('mouseleave', function() {
-            startAutoplay();
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                startAutoplay();
+            }
         });
     }
   }

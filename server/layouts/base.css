@@ -1,38 +1,83 @@
-
-/* Theme Variables */
-:root {
-  /* Light mode colors (default) */
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --text-secondary: #333333;
-  --border-color: #e0e0e0;
-  --link-border-color: #cccccc;
-  --bg-hover-color: #f5f5f5;
-  --footer-bg-color: #ededed;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --card-bg-color: #ffffff;
-  --input-bg-color: #ffffff;
-  --button-bg-color: #333333;
-  --button-text-color: #ffffff;
-  --button-hover-bg-color: #555555;
+/* =============================================
+   ACCESSIBILITY - Skip Links
+   ============================================= */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 1rem 1.5rem;
+  background-color: var(--button-bg-color, #333333);
+  color: var(--button-text-color, #ffffff);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0, 0, 0, 0.2));
+  transition: top 0.2s ease-in-out;
+  white-space: nowrap;
 }
 
-/* Dark mode colors */
-[data-theme="dark"] {
-  --bg-color: #333333;
-  --text-color: #fafafa;
-  --text-secondary: #e0e0e0;
-  --border-color: #555555;
-  --link-border-color: #666666;
-  --bg-hover-color: #444444;
-  --footer-bg-color: #2a2a2a;
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --card-bg-color: #404040;
-  --input-bg-color: #404040;
-  --button-bg-color: #fafafa;
-  --button-text-color: #333333;
-  --button-hover-bg-color: #e0e0e0;
+.skip-link:focus {
+  top: 1rem;
+  outline: 3px solid var(--text-color, #000000);
+  outline-offset: 2px;
 }
+
+/* Screen reader only class for visually hidden content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible styles for better keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--text-color, #000000);
+  outline-offset: 2px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure focus is visible on main content when skipped to */
+main:focus {
+  outline: none;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support (color overrides in properties.css) */
+@media (prefers-contrast: high) {
+  a:focus,
+  button:focus {
+    outline-width: 3px;
+  }
+}
+
+/* =============================================
+   Theme Application
+   (Variables defined in properties.css)
+   ============================================= */
 
 /* Apply theme colors to body */
 body {
@@ -48,31 +93,40 @@ body {
   filter: invert(1) brightness(1.1);
 }
 
-nav{
+nav#primary-navigation {
   --hor-padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  /* padding-left:; */
   font-size: 1.1em;
-  margin-top: 1.2em;
 
-  a > img{
-      width: 7em;
-      transition: filter 0.3s ease;
+  a > img {
+    width: 7em;
+    transition: filter 0.3s ease;
   }
 
-  ul{
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 2em;
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
   }
 
-  button{
-      margin-right: var(--hor-padding);
+  ul li a {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  ul li a:hover,
+  ul li a:focus {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  button {
+    margin-right: var(--hor-padding);
   }
 }
 
@@ -84,25 +138,25 @@ a{
 
 html{
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 main {
   display: flex;
   flex-direction: column;
   gap: 3rem;
-}
-
-body {
   width: 100%;
   padding: 0 clamp(1em, 3vw, 2em);
-
   box-sizing: border-box;
-
   margin: 0;
-  overflow-x: hidden;
+}
 
-  display: flex;
-  flex-direction: column;
+/* Header containing nav */
+header[role="banner"] {
+  width: 100%;
+  background: #f6f3f3;
+  padding: 1.2em clamp(1em, 3vw, 2em);
+  box-sizing: border-box;
 }
 
 footer {
@@ -119,15 +173,15 @@ footer {
   background-color: var(--footer-bg-color);
   width: auto; /* Override your existing width: 1 which appears to be incomplete */
 
+  /* Top part of the footer */
   >div:nth-of-type(1){
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   margin-top: 3rem;
-
   width: 100%;
+  padding: 0 clamp(1em, 3vw, 2em);
+  box-sizing: border-box;
   height: 400px;
   position: relative;
 
@@ -171,16 +225,18 @@ footer {
 
     }
   }
-
+/* divider */
   hr{
     margin-top: 4rem;
     width: 100%;
     color: #fafafa73;
   }
+  /* Bottom part of the footer */
   >div:nth-of-type(2){
     width: 100%;
     height: auto;
-
+    padding: 0 clamp(1em, 3vw, 2em);
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -200,25 +256,30 @@ footer {
 
 /* Mobile Styles (320px - 768px) */
 @media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    margin-top: 0.8rem;
+  header[role="banner"] {
+    margin-top: 0;
+  }
+
+  nav#primary-navigation {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
     
     a > img {
-      width: 5em;
+      width: 4.5em;
     }
     
     ul {
-      justify-content: center;
-      gap: 1.5em;
-      font-size: 1rem;
+      justify-content: flex-end;
+      gap: 1.2em;
+      font-size: 0.9rem;
     }
   }
 
-  body {
-    padding: 0 1em;
+  .skip-link:focus {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
   }
 
   main {
@@ -226,8 +287,7 @@ footer {
   }
 
   footer {
-    margin-left: -1em;
-    margin-right: -1em;
+
     padding-left: 1em;
     padding-right: 1em;
 
@@ -290,7 +350,7 @@ footer {
 
 /* Tablet Styles (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
-  nav {
+  nav#primary-navigation {
     a > img {
       width: 6em;
     }

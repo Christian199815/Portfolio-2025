@@ -1,0 +1,209 @@
+/* =============================================
+   DESIGN SYSTEM PROPERTIES
+   Centralized CSS custom properties for the entire website
+   ============================================= */
+
+:root {
+  /* ===========================================
+     COLORS - Light Mode (Default)
+     =========================================== */
+  
+  /* Background Colors */
+  --bg-color: #ffffff;
+  --bg-hover-color: #f5f5f5;
+  --footer-bg-color: #ededed;
+  --card-bg-color: #ffffff;
+  --input-bg-color: #ffffff;
+  
+  /* Text Colors */
+  --text-color: #000000;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  
+  /* Border Colors */
+  --border-color: #e0e0e0;
+  --link-border-color: #cccccc;
+  
+  /* Shadow Colors */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-heavy: rgba(0, 0, 0, 0.2);
+  
+  /* Button Colors */
+  --button-bg-color: #333333;
+  --button-text-color: #ffffff;
+  --button-hover-bg-color: #555555;
+  
+  /* Accent Colors */
+  --accent-primary: #0066cc;
+  --accent-primary-hover: #0056b3;
+  --accent-secondary: #ff7a4e;
+  --accent-gradient-start: #ffce62;
+  --accent-gradient-end: #ff7a4e;
+  --accent-gradient: linear-gradient(135deg, var(--accent-gradient-start), var(--accent-gradient-end));
+  
+  /* Focus Colors */
+  --focus-color: var(--accent-secondary);
+  --focus-ring-color: rgba(255, 122, 78, 0.4);
+  
+  /* ===========================================
+     TYPOGRAPHY
+     =========================================== */
+  
+  /* Font Sizes - Using a modular scale */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-md: 1.1rem;     /* ~18px */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
+  --font-size-3xl: 2.5rem;    /* 40px */
+  --font-size-4xl: 3rem;      /* 48px */
+  --font-size-5xl: 4rem;      /* 64px */
+  --font-size-6xl: 6rem;      /* 96px */
+  
+  /* Responsive Heading Sizes */
+  --heading-hero: clamp(2.5rem, 8vw, 6rem);
+  --heading-page: clamp(2rem, 6vw, 4rem);
+  --heading-section: clamp(1.8rem, 4vw, 3rem);
+  --heading-card: clamp(1.4rem, 3vw, 2rem);
+  
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.75;
+  
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.08em;
+  --letter-spacing-wider: 0.12em;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* ===========================================
+     SPACING
+     =========================================== */
+  
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+  --spacing-3xl: 4rem;     /* 64px */
+  --spacing-4xl: 6rem;     /* 96px */
+  
+  /* Responsive Spacing */
+  --container-padding: clamp(1rem, 3vw, 2rem);
+  --section-gap: clamp(2rem, 5vw, 3rem);
+  
+  /* ===========================================
+     BORDER RADIUS
+     =========================================== */
+  
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-3xl: 2rem;      /* 32px */
+  --radius-full: 9999px;   /* Fully rounded */
+  
+  /* ===========================================
+     SHADOWS
+     =========================================== */
+  
+  --shadow-sm: 0 2px 4px var(--shadow-color);
+  --shadow-md: 0 4px 12px var(--shadow-color);
+  --shadow-lg: 0 8px 24px var(--shadow-color);
+  --shadow-xl: 0 24px 60px var(--shadow-color);
+  --shadow-card: 0 24px 70px var(--shadow-color);
+  --shadow-focus: 0 0 0 3px var(--focus-ring-color);
+  
+  /* ===========================================
+     TRANSITIONS
+     =========================================== */
+  
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Easing Functions */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.22, 0.61, 0.36, 1);
+  
+  /* ===========================================
+     Z-INDEX SCALE
+     =========================================== */
+  
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-overlay: 1000;
+  --z-modal: 1100;
+  --z-popover: 1200;
+  --z-tooltip: 1300;
+  --z-max: 10000;
+  
+  /* ===========================================
+     LAYOUT
+     =========================================== */
+  
+  --header-height: 4rem;
+  --max-content-width: 1440px;
+  --nav-logo-width: 7em;
+  --nav-logo-width-mobile: 4.5em;
+}
+
+/* ===========================================
+   COLORS - Dark Mode
+   =========================================== */
+
+[data-theme="dark"] {
+  /* Background Colors */
+  --bg-color: #333333;
+  --bg-hover-color: #444444;
+  --footer-bg-color: #2a2a2a;
+  --card-bg-color: #404040;
+  --input-bg-color: #404040;
+  
+  /* Text Colors */
+  --text-color: #fafafa;
+  --text-secondary: #e0e0e0;
+  --text-muted: #999999;
+  
+  /* Border Colors */
+  --border-color: #555555;
+  --link-border-color: #666666;
+  
+  /* Shadow Colors */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-heavy: rgba(0, 0, 0, 0.5);
+  
+  /* Button Colors */
+  --button-bg-color: #fafafa;
+  --button-text-color: #333333;
+  --button-hover-bg-color: #e0e0e0;
+}
+
+/* ===========================================
+   HIGH CONTRAST MODE
+   =========================================== */
+
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --link-border-color: #000000;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+  }
+}

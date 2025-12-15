@@ -483,6 +483,66 @@ app.get('/', async (req, res) => {
   }));
 });
 
+app.get('/bento', async (req, res) => {
+  const projects = await loadAllProjectData();
+  const randomProjects = getRandomProjects(projects, 3);
+  const featuredProjects = getRandomProjects(projects, 3);
+  const testProjects = projects.filter(project =>
+    project.typeOfProject?.toLowerCase().includes('test project')
+  );
+
+  const imageStairs = randomProjects.map(project => ({
+    src: project.projectFeaturedImage,
+    alt: project.projectname,
+    link: "/project/" + project.id
+  }));
+
+  // Get discipline from URL query param, default to 'all'
+  const validDisciplines = ['all', 'web-programming', 'web-design', 'game-programming', 'game-design'];
+  const selectedDiscipline = validDisciplines.includes(req.query.discipline) ? req.query.discipline : 'all';
+
+  const disciplineCategories = [
+    { name: 'All disciplines', key: 'all', isActive: selectedDiscipline === 'all' },
+    { name: 'Web Programming', key: 'web-programming', isActive: selectedDiscipline === 'web-programming' },
+    { name: 'Web Designing', key: 'web-design', isActive: selectedDiscipline === 'web-design' },
+    { name: 'Game Programming', key: 'game-programming', isActive: selectedDiscipline === 'game-programming' },
+    { name: 'Game Designing', key: 'game-design', isActive: selectedDiscipline === 'game-design' }
+  ];
+
+  const projectsByDiscipline = {};
+
+  disciplineCategories.forEach(({ name, key }) => {
+    if (key === 'all') {
+      projectsByDiscipline[key] = projects;
+      return;
+    }
+
+    const categoryProjects = projects.filter(project =>
+      project.category?.toLowerCase() === name.toLowerCase() ||
+      project.typeOfProject?.toLowerCase() === name.toLowerCase()
+    );
+
+    projectsByDiscipline[key] = categoryProjects;
+  });
+
+  // Get unique product types and project types for additional filters
+  const productTypes = uniqueValues(projects, 'typeOfProduct');
+  const projectTypes = uniqueValues(projects, 'typeOfProject');
+
+  return res.send(renderTemplate('server/views/bento.liquid', {
+    title: 'Project overview - bento',
+    imageStairs: imageStairs,
+    featuredProjects: featuredProjects,
+    testProjects: testProjects,
+    projects: projects,
+    disciplineCategories: disciplineCategories,
+    projectsByDiscipline: projectsByDiscipline,
+    productTypes: productTypes,
+    projectTypes: projectTypes,
+    selectedDiscipline: selectedDiscipline
+  }));
+});
+
 app.get('/about', async (req, res) => {
   return res.send(renderTemplate('server/views/about/about.liquid', {
     title: 'About Chris'

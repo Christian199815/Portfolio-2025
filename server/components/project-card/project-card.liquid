@@ -1,4 +1,3 @@
-
 {% comment %}
     Usage:
     {% render 'server/components/project-card.liquid', project: project_object %}
@@ -9,14 +8,13 @@
     data-product-type="{{ project.typeOfProduct }}" 
     data-project-type="{{ project.typeOfProject }}" 
     data-date="{{ project.projectDate }}">
-    <a href="/project/{{ project.id }}" class="project-link">
+    <a href="/project/{{ project.id }}" class="project-link" aria-label="View {{ project.projectname }} - {{ project.typeOfProject }}, {{ project.typeOfProduct }}">
         <h3 class="project-name">{{ project.projectname }}</h3>
         <div>
             <p class="project-type">{{ project.typeOfProject }}</p>
             <p class="product-type">{{ project.typeOfProduct }}</p>
         </div>
-        <img src="{{ project.projectFeaturedImage }}" alt="{{ project.projectname }}" class="project-image">
+        <img src="{{ project.projectFeaturedImage }}" alt="Featured image of {{ project.projectname }}" class="project-image" loading="lazy">
         <p hidden class="project-date">{{ project.projectDate }}</p>
-        {% comment %} <p>View Project</p> {% endcomment %}
     </a>
 </li>

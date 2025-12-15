@@ -1,4 +1,4 @@
-import { getElement } from "../../../client/document";
+import { getElement, announceToScreenReader } from "../../../client/document";
 
 class ThemeToggle {
     constructor() {
@@ -11,6 +11,9 @@ class ThemeToggle {
     init() {
         // Apply the theme immediately to prevent flash
         this.applyTheme(this.currentTheme);
+        
+        // Update theme label on init
+        this.updateThemeLabel();
         
         if (this.themeToggle) {
             this.themeToggle.addEventListener('click', () => this.toggleTheme());
@@ -46,12 +49,16 @@ class ThemeToggle {
         document.documentElement.setAttribute('data-theme', theme);
         this.setStoredTheme(theme);
         
-        // Update button aria-label
+        // Update button aria-label and aria-pressed
         if (this.themeToggle) {
             const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
             this.themeToggle.setAttribute('aria-label', label);
+            this.themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
             this.themeToggle.setAttribute('title', label);
         }
+        
+        // Update theme label in settings menu
+        this.updateThemeLabel();
         
         // Dispatch theme change event
         document.dispatchEvent(new CustomEvent('themeChanged', {
@@ -59,9 +66,19 @@ class ThemeToggle {
         }));
     }
 
+    updateThemeLabel() {
+        const themeLabel = document.querySelector('[data-theme-label]');
+        if (themeLabel) {
+            themeLabel.textContent = this.currentTheme === 'light' ? 'Dark' : 'Light';
+        }
+    }
+
     toggleTheme() {
         const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
         this.applyTheme(newTheme);
+        
+        // Announce theme change to screen readers
+        announceToScreenReader(`Theme changed to ${newTheme} mode`);
     }
 }
 

@@ -1,0 +1,167 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+<section id="bento" aria-labelledby="bento-heading">
+  <header class="bento-header">
+    <div class="bento-header-main">
+      <h1 id="bento-heading">Project overview</h1>
+    </div>
+  </header>
+
+  <section class="bento-grid" aria-live="polite" data-bento-grid aria-label="Project grid">
+    <article class="bento-card bento-card--intro" data-bento-static tabindex="0" aria-labelledby="intro-card-heading">
+      <div class="bento-intro-content">
+        <img 
+          class="bento-intro-photo" 
+          src="/public/images/Chris-Hoofd.webp" 
+          alt="Photo of Chris"
+        />
+        <div>
+          <h2 id="intro-card-heading">Hi, I'm Chris —</h2>
+          <p>
+            A developer who loves building rich, interactive experiences for the web and in games.
+            This grid highlights a mix of shipped work, experiments and in‑progress ideas.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="bento-card bento-card--filters" data-bento-static tabindex="0" aria-labelledby="filters-card-heading" role="group">
+      <div class="bento-filters-header">
+        <p class="bento-label" id="filters-card-heading">Filter by discipline</p>
+        <button
+          type="button"
+          class="bento-discipline-pill"
+          data-discipline="all"
+          data-bento-discipline
+          aria-pressed="false"
+          aria-label="Show all disciplines"
+        >
+          All disciplines
+        </button>
+      </div>
+      <div class="bento-filters-grid" data-bento-disciplines role="group" aria-label="Discipline filter buttons">
+        {% for discipline in disciplineCategories %}
+          {% if discipline.key != 'all' %}
+          <button
+            type="button"
+            class="bento-filter-tile"
+            data-discipline="{{ discipline.key }}"
+            data-bento-discipline
+            aria-pressed="false"
+            aria-label="Filter by {{ discipline.name }}"
+          >
+            <span class="bento-filter-label">{{ discipline.name }}</span>
+          </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </article>
+
+    <article class="bento-card bento-card--info" data-bento-static tabindex="0" aria-labelledby="work-style-heading">
+      <p class="bento-eyebrow">Snapshot</p>
+      <h2 id="work-style-heading">How I like to work</h2>
+      <p class="content-block">
+        I enjoy taking projects from first ideas to polished experiences — combining UX, visual design,
+        front‑end engineering and playful micro‑interactions.
+      </p>
+      <p class="content-block">
+        Each discipline highlights a different side of my process, from solid engineering foundations to
+        expressive visual storytelling.
+      </p>
+    </article>
+
+    <article class="bento-card bento-card--contact" data-bento-static tabindex="0" aria-labelledby="contact-card-heading">
+      <h2 id="contact-card-heading">Have a project in mind?</h2>
+      <p>
+        Whether you’re exploring an idea or ready to ship something concrete, I’d love to hear what you’re
+        working on and see how I can help.
+      </p>
+      <div class="bento-contact-actions">
+        {% render '../components/contact-button/contact-button.liquid' %}
+        <a class="bento-secondary-link" href="mailto:christian.donker1998@gmail.com" aria-label="Send email to Chris">
+          Copy email
+        </a>
+      </div>
+    </article>
+
+    <article class="bento-card bento-card--theme" data-bento-static tabindex="0" aria-labelledby="theme-card-heading">
+      <p class="bento-eyebrow">Theme</p>
+      <h2 id="theme-card-heading">Light or dark?</h2>
+      <p class="content-block">
+        Switch between light and dark mode to view the work the way it feels best for you.
+      </p>
+      <div class="bento-theme-toggle-wrapper">
+        <button 
+          type="button"
+          class="bento-theme-btn"
+          data-bento-theme-toggle
+          aria-label="Switch to dark mode"
+          aria-pressed="false"
+          title="Toggle dark/light mode"
+        >
+          <span class="bento-theme-icon" data-theme-icon aria-hidden="true">
+            <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </article>
+
+    <article class="bento-card bento-card--extra-filters" data-bento-static tabindex="0" aria-labelledby="extra-filters-heading">
+      <p class="bento-eyebrow">Refine</p>
+      <h2 id="extra-filters-heading">More filters</h2>
+      <div class="bento-extra-filters-grid" role="group" aria-label="Additional project filters">
+        <div class="bento-filter-select-group">
+          <label for="bento-product-type">Product Type</label>
+          <select id="bento-product-type" data-bento-product-filter aria-label="Filter by product type">
+            <option value="">All Product Types</option>
+            {% for type in productTypes %}
+            <option value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="bento-filter-select-group">
+          <label for="bento-project-type">Project Type</label>
+          <select id="bento-project-type" data-bento-project-filter aria-label="Filter by project type">
+            <option value="">All Project Types</option>
+            {% for type in projectTypes %}
+            <option value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="bento-filter-select-group">
+          <label for="bento-sort">Sort by</label>
+          <select id="bento-sort" data-bento-sort-filter aria-label="Sort projects">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="name">Project Name</option>
+          </select>
+        </div>
+        <button type="button" class="bento-clear-filters-btn" data-bento-clear-filters aria-label="Clear all filters">
+          Clear Filters
+        </button>
+      </div>
+    </article>
+  </section>
+</section>
+
+<script>
+  window.bentoAllProjects = {{ projects | json }};
+  window.bentoProjectsByDiscipline = {{ projectsByDiscipline | json }};
+</script>
+{% endblock %}
+
+

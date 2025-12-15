@@ -1,35 +1,46 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
-<section id="work">
-  <h2>My Work</h2>
+<section id="work" aria-labelledby="work-heading">
+  <h1 id="work-heading">My Work</h1>
   
   <!-- Filter and Sort Controls -->
-  <div class="controls">
-    <div class="filters">
-      <select id="category-filter" data-category-filter>
-        <option value="">All Categories</option>
-        {% for category in categories %}
-        <option value="{{ category }}" {% if category == selectedCategory %}selected{% endif %}>{{ category }}</option>
-        {% endfor %}
-      </select>
+  <div class="controls" role="search" aria-label="Filter and sort projects">
+    <fieldset class="filters">
+      <legend class="sr-only">Filter projects</legend>
       
-      <select id="product-type-filter" data-product-type-filter>
-        <option value="">All Product Types</option>
-        {% for type in productTypes %}
-        <option value="{{ type }}" {% if type == selectedProductType %}selected{% endif %}>{{ type }}</option>
-        {% endfor %}
-      </select>
+      <div class="filter-group">
+        <label for="category-filter" class="sr-only">Filter by category</label>
+        <select id="category-filter" data-category-filter aria-label="Filter by category">
+          <option value="">All Categories</option>
+          {% for category in categories %}
+          <option value="{{ category }}" {% if category == selectedCategory %}selected{% endif %}>{{ category }}</option>
+          {% endfor %}
+        </select>
+      </div>
       
-      <select id="project-type-filter" data-project-type-filter>
-        <option value="">All Project Types</option>
-        {% for type in projectTypes %}
-        <option value="{{ type }}" {% if type == selectedProjectType %}selected{% endif %}>{{ type }}</option>
-        {% endfor %}
-      </select>
+      <div class="filter-group">
+        <label for="product-type-filter" class="sr-only">Filter by product type</label>
+        <select id="product-type-filter" data-product-type-filter aria-label="Filter by product type">
+          <option value="">All Product Types</option>
+          {% for type in productTypes %}
+          <option value="{{ type }}" {% if type == selectedProductType %}selected{% endif %}>{{ type }}</option>
+          {% endfor %}
+        </select>
+      </div>
       
-      <button id="clear-filters" data-clear-filters>Clear Filters</button>
-    </div>
+      <div class="filter-group">
+        <label for="project-type-filter" class="sr-only">Filter by project type</label>
+        <select id="project-type-filter" data-project-type-filter aria-label="Filter by project type">
+          <option value="">All Project Types</option>
+          {% for type in projectTypes %}
+          <option value="{{ type }}" {% if type == selectedProjectType %}selected{% endif %}>{{ type }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      
+      <button id="clear-filters" data-clear-filters type="button" aria-label="Clear all filters">Clear Filters</button>
+    </fieldset>
     
     <div class="sort-options">
       <label for="sort-by">Sort by:</label>
@@ -41,10 +52,10 @@
     </div>
   </div>
 
-  <ul id="projects-list">
+  <ul id="projects-list" role="list" aria-label="List of projects" aria-live="polite">
     {% if projects.size == 0 %}
-      <li class="no-results">
-        <h3>No projects found</h3>
+      <li class="no-results" role="status">
+        <h2>No projects found</h2>
         <p>Try adjusting your filters</p>
       </li>
     {% else %}

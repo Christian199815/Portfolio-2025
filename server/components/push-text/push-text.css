@@ -1,0 +1,51 @@
+.push-text-container {
+    display: none;
+    overflow: hidden;
+    position: relative;
+    height: 1.4em;
+    width: 100%;
+}
+
+.push-text-track {
+    display: flex;
+    position: relative;
+    height: 100%;
+}
+
+.push-text-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    font-weight: bold;
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: var(--text-color);
+    text-align: center;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.push-text-item.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.push-text-item.exiting {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* Show push-text on mobile, hide rolling text */
+@media (max-width: 770px) {
+    .push-text-container {
+        display: block;
+        height: 3em;
+    }
+
+    /* Hide the rolling text container on mobile */
+    .container:has(.text-container) {
+        display: none;
+    }
+}

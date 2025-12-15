@@ -2,7 +2,7 @@
 .settings-trigger {
   position: absolute;
   right: 0;
-  top: 15%;
+  top: 9%;
   z-index: 1000;
   pointer-events: none;
 }
@@ -44,7 +44,7 @@
 .settings-menu {
   position: fixed;
   right: -310px;
-  top: 15%;
+  top: 9%;
   height: auto;
   max-height: calc(85vh - 20px);
   width: 300px;

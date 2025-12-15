@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Only run the filter code on the work route
   if (!isWorkRoute) {
-    console.log('Filters not initialized: Not on work route');
     return;
   }
   

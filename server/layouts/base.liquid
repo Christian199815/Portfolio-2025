@@ -14,32 +14,49 @@
 </head>
 
 <body data-auto-init-popovers>
+  <!-- Skip Links for Screen Readers -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#primary-navigation" class="skip-link">Skip to navigation</a>
+  <a href="#site-footer" class="skip-link">Skip to footer</a>
+
+  <!-- Live Region Announcer for Screen Readers -->
+  <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <div id="sr-announcer-assertive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
   <!-- Settings Menu -->
   {% render '../components/settings-menu/settings-menu.liquid' %}
   
-  <nav>
+  <header role="banner">
+    <nav id="primary-navigation" aria-label="Primary navigation">
       <!-- Logo -->
-      <a href="/"><img src="../../public/images/Chris.svg" alt="name logo of Chris" /></a>
-      <ul>
-        <li><a href="/work">work</a></li>
-        {% comment %} <li><a href="/about">about</a></li> {% endcomment %}
-        <li><a href="/contact">contact</a></li>
+      <a href="/" aria-label="Chris - Home">
+        <img src="../../public/images/Chris.svg" alt="" aria-hidden="true" />
+      </a>
+      <ul role="list">
+        <li><a href="/bento">Work</a></li>
+        {% comment %} <li><a href="/about">About</a></li> {% endcomment %}
+        <li><a href="/contact">Contact</a></li>
       </ul>
     </nav>
-  <main>
+  </header>
+
+  <main id="main-content" role="main" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
-  <footer>
+  <footer id="site-footer" role="contentinfo">
     <div>
-      <section>
-        <a href=/"><img src="./images/Chris.svg" alt="name logo of Chris" /></a>
-            <h2>Let's Connect!</h2>
-            <p class="content-block">Got questions about my work or ideas you'd like to share? Feel free to reach out—I'd love to have a chat!</p>
-            <button class="contact-link" data-contact-button>Reach out!</button>
-        </section>
-        <img src="/public/images/Chris-Hoofd.webp" alt="featured photo of Chris">
-        <div>
-          <ul>
+      <section aria-labelledby="footer-connect-heading">
+        <a href="/" aria-label="Chris - Home">
+          <img src="./images/Chris.svg" alt="" aria-hidden="true" />
+        </a>
+        <h2 id="footer-connect-heading">Let's Connect!</h2>
+        <p class="content-block">Got questions about my work or ideas you'd like to share? Feel free to reach out—I'd love to have a chat!</p>
+        <button class="contact-link" data-contact-button aria-label="Open contact form">Reach out!</button>
+      </section>
+      <img src="/public/images/baard-chris.webp" alt="Photo of Chris" />
+      <div>
+        <nav aria-label="Page sections">
+          <ul role="list">
             <li><a href="/#intro-section">Start</a></li>
             {% comment %} <li><a href="#discipline-section">My disciplines</a></li> {% endcomment %}
             <li><a href="/#featured-work-section">Featured Work</a></li>
@@ -47,22 +64,33 @@
             <li><a href="/#current-work-section">Current Projects</a></li>
             {% comment %} <li><a href="#recommendations-section">Recommendations</a></li> {% endcomment %}
           </ul>
+        </nav>
 
-          <ul>
-            <li><a href="/work">My Work</a></li>
+        <nav aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="/bento">My Work</a></li>
             <li><a href="/contact">Let's Connect</a></li>
           </ul>
-        </div>
-      </div>  
-        <hr>
-        <div>
-          <p>Copyright Chris 2025</p>
-          <ul>
-            <li><a href="https://www.linkedin.com/in/chris-donker/" target="_blank"><img src="../../public/images/linkedin.png" alt="Logo of linkedin"></a></li>
-            <li><a href="https://github.com/Christian199815" target="_blank"><img src="../../public/images/Github.png" alt="Logo of Github"></a></li>
-          </ul>
-        </div>
-    </footer>
+        </nav>
+      </div>
+    </div>  
+    <hr aria-hidden="true" />
+    <div>
+      <p><small>&copy; Chris 2025</small></p>
+      <ul role="list" aria-label="Social media links">
+        <li>
+          <a href="https://www.linkedin.com/in/chris-donker/" target="_blank" rel="noopener noreferrer" aria-label="Chris on LinkedIn (opens in new tab)">
+            <img src="../../public/images/linkedin.png" alt="" aria-hidden="true" />
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Christian199815" target="_blank" rel="noopener noreferrer" aria-label="Chris on GitHub (opens in new tab)">
+            <img src="../../public/images/Github.png" alt="" aria-hidden="true" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
 
 </body>
 </html>

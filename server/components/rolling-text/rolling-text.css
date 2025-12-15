@@ -1,4 +1,5 @@
 .container {
+
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -7,7 +8,7 @@
 .text-container {
     position: relative;
     width: 200px;
-    height: .9em;
+    height: 1.2em;
     perspective: 1000px;
     transform-style: preserve-3d;
 }
@@ -202,5 +203,12 @@
     96%, 100% {
         transform: rotateX(90deg);
         opacity: 0;
+    }
+}
+
+/* Hide rolling text on mobile - push-text takes over */
+@media (max-width: 770px) {
+    .container:has(.text-container) {
+        display: none;
     }
 }

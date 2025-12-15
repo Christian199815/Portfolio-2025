@@ -52,21 +52,58 @@ class SettingsMenu {
         this.isOpen = true;
         this.menu.classList.add('open');
         
+        // Update ARIA states
+        this.trigger.setAttribute('aria-expanded', 'true');
+        this.menu.setAttribute('aria-hidden', 'false');
+        
         // Focus management
         this.closeButton.focus();
+        
+        // Trap focus within the menu
+        this.trapFocus();
     }
 
     closeMenu() {
         this.isOpen = false;
         this.menu.classList.remove('open');
         
+        // Update ARIA states
+        this.trigger.setAttribute('aria-expanded', 'false');
+        this.menu.setAttribute('aria-hidden', 'true');
+        
         // Return focus to trigger
         this.trigger.focus();
     }
 
+    trapFocus() {
+        const focusableElements = this.menu.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        const handleTabKey = (e) => {
+            if (e.key !== 'Tab') return;
+            
+            if (e.shiftKey) {
+                if (document.activeElement === firstFocusable) {
+                    lastFocusable.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === lastFocusable) {
+                    firstFocusable.focus();
+                    e.preventDefault();
+                }
+            }
+        };
+
+        this.menu.addEventListener('keydown', handleTabKey);
+    }
+
     updateThemeLabel(theme) {
         if (this.themeLabel) {
-            this.themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+            this.themeLabel.textContent = theme === 'dark' ? 'Light' : 'Dark';
         }
     }
 }

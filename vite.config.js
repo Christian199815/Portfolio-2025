@@ -10,6 +10,15 @@ export default defineConfig({
       host: 'localhost',
     },
   },
+  resolve: {
+    alias: {
+      '@server': path.resolve(__dirname, 'server'),
+      '@components': path.resolve(__dirname, 'server/components'),
+      '@views': path.resolve(__dirname, 'server/views'),
+      '@layouts': path.resolve(__dirname, 'server/layouts'),
+      '@client': path.resolve(__dirname, 'client'),
+    },
+  },
   build: {
     publicDir: 'client',
     cssCodeSplit: true,

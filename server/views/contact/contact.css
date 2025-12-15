@@ -155,3 +155,8 @@ form button {
 form button:hover {
     background-color: var(--button-hover-bg-color);
 }
+
+#contact-heading{
+    font-size: clamp(1rem, 5vw, 4rem);
+    font-weight: 500;
+}

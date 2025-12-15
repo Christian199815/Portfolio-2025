@@ -1,25 +1,40 @@
 <!-- Settings Menu Trigger Bar -->
-<div class="settings-trigger">
-  <div class="settings-trigger-bar" data-settings-trigger>
-    <img src="/public/images/settings.svg" alt="settings-tab">
-  </div>
-</div>
+<aside class="settings-trigger" aria-label="Site settings">
+  <button 
+    class="settings-trigger-bar" 
+    data-settings-trigger
+    aria-label="Open settings menu"
+    aria-expanded="false"
+    aria-controls="settings-panel"
+    type="button"
+  >
+    <img src="/public/images/settings.svg" alt="" aria-hidden="true" />
+    <span class="sr-only">Settings</span>
+  </button>
+</aside>
 
 <!-- Settings Menu Panel -->
-<div class="settings-menu" data-settings-menu>
+<div 
+  id="settings-panel"
+  class="settings-menu" 
+  data-settings-menu
+  role="dialog"
+  aria-label="Settings menu"
+  aria-hidden="true"
+>
   <div class="settings-menu-content">
-    <button class="settings-close" data-settings-close aria-label="Close settings">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <button class="settings-close" data-settings-close aria-label="Close settings menu" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <line x1="18" y1="6" x2="6" y2="18"/>
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
     
-    <div class="setting-item">
-      {% comment %} <label for="theme-setting">Theme</label> {% endcomment %}
+    <div class="setting-item" role="group" aria-labelledby="theme-setting-label">
+      <span id="theme-setting-label" class="sr-only">Theme settings</span>
       <div class="theme-options">
         {% render '../theme-toggle/theme-toggle.liquid' %}
-        <span class="theme-label" data-theme-label>Light</span>
+        <span class="theme-label" data-theme-label aria-live="polite">Light</span>
       </div>
     </div>
   </div>
