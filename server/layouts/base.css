@@ -84,13 +84,18 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
 }
 
 /* Dark mode logo inversion */
 [data-theme="dark"] nav a > img,
 [data-theme="dark"] footer section a > img,
-[data-theme="dark"] footer ul li img {
+[data-theme="dark"] footer ul li img{
   filter: invert(1) brightness(1.1);
+}
+
+[data-theme="dark"] header[role="banner"]{
+  background: #121212;
 }
 
 nav#primary-navigation {

@@ -719,11 +719,13 @@ section {
   }
 }
 
-p.content-block {
-  text-align: right;
-}
+@media (min-width: 771px) {
+  p.content-block {
+    text-align: right;
+  }
 
-p.content-block + .contact-link {
-  margin-left: auto;
+  p.content-block + .contact-link {
+    margin-left: auto;
+  }
 }
 

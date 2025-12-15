@@ -60,6 +60,24 @@
   button {
     grid-area: 2 / 2 / 3 / 3;
   }
+
+  @media (max-width: 770px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+
+    h2 {
+      grid-area: auto;
+    }
+
+    p {
+      grid-area: auto;
+    }
+
+    button {
+      grid-area: auto;
+    }
+  }
 }
 
 
