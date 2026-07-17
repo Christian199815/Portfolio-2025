@@ -9,7 +9,8 @@
         <ol role="list">
           <li><a href="/">Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/work?category={{ project.category }}" id="category-link" data-category="{{ project.category }}">{{ project.category }}</a></li>
+          {% assign discipline_key = project.category | downcase | replace: ' ', '-' %}
+          <li><a href="/bento?discipline={{ discipline_key }}" id="category-link" data-category="{{ project.category }}">{{ project.category }}</a></li>
           <li aria-hidden="true">/</li>
           <li><span id="project-name" aria-current="page">{{ project.projectname }}</span></li>
         </ol>
