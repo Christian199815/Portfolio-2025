@@ -3,6 +3,14 @@ import gsap from 'gsap';
 
 const SESSION_KEY = 'cd-intro-seen';
 
+function lockScroll() {
+  document.documentElement.classList.add('is-scroll-locked');
+}
+
+function unlockScroll() {
+  document.documentElement.classList.remove('is-scroll-locked');
+}
+
 export default function Preloader({ onComplete }) {
   const rootRef = useRef(null);
   const countRef = useRef(null);
@@ -19,13 +27,13 @@ export default function Preloader({ onComplete }) {
       return undefined;
     }
 
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     const progress = { value: 0 };
 
     const tl = gsap.timeline({
       onComplete: () => {
         sessionStorage.setItem(SESSION_KEY, '1');
-        document.body.style.overflow = '';
+        unlockScroll();
         onComplete?.();
       },
     });
@@ -52,6 +60,7 @@ export default function Preloader({ onComplete }) {
         stagger: 0.05,
         ease: 'expo.in',
       })
+      .add(() => rootRef.current?.classList.add('is-exiting'))
       .to(
         rootRef.current,
         { yPercent: -100, duration: 0.9, ease: 'expo.inOut' },
@@ -61,7 +70,8 @@ export default function Preloader({ onComplete }) {
 
     return () => {
       tl.kill();
-      document.body.style.overflow = '';
+      unlockScroll();
+      rootRef.current?.classList.remove('is-exiting');
     };
   }, [onComplete]);
 

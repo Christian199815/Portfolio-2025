@@ -11,6 +11,11 @@
   justify-content: flex-end;
   padding: var(--container-padding);
   will-change: transform;
+  touch-action: none;
+}
+
+.preloader.is-exiting {
+  pointer-events: none;
 }
 
 .preloader__inner {

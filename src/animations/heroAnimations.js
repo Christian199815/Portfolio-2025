@@ -6,6 +6,8 @@ gsap.registerPlugin(ScrollTrigger);
 const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
+
 export function initHeroAnimations(scope) {
   if (prefersReducedMotion() || !scope) return () => {};
 
@@ -30,18 +32,20 @@ export function initHeroAnimations(scope) {
       '-=0.75',
     );
 
-    // Type drifts up and dims as the hero scrolls away
-    gsap.to(scope.querySelector('.hero__title'), {
-      yPercent: -18,
-      opacity: 0.15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: scope,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 0.6,
-      },
-    });
+    // Scrubbed parallax fights native touch scrolling on mobile
+    if (!isCoarsePointer()) {
+      gsap.to(scope.querySelector('.hero__title'), {
+        yPercent: -18,
+        opacity: 0.15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: scope,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.6,
+        },
+      });
+    }
   }, scope);
 
   return () => ctx.revert();

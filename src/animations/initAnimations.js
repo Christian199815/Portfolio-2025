@@ -7,8 +7,12 @@ import { initSpotlights } from './spotlight';
 
 gsap.registerPlugin(ScrollTrigger);
 
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
 
 /**
  * Project data and images land after first paint, so the document keeps growing.
@@ -65,7 +69,7 @@ export function initGlobalAnimations(scope) {
 
   const ctx = gsap.context(() => {
     const progress = document.querySelector('[data-scroll-progress]');
-    if (progress) {
+    if (progress && !isCoarsePointer()) {
       gsap.fromTo(
         progress,
         { scaleX: 0 },

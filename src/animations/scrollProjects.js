@@ -6,6 +6,8 @@ gsap.registerPlugin(ScrollTrigger);
 const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
+
 export function initScrollProjectAnimations(scope) {
   if (prefersReducedMotion() || !scope) return () => {};
 
@@ -14,7 +16,7 @@ export function initScrollProjectAnimations(scope) {
       const image = panel.querySelector('[data-panel-image]');
       const content = panel.querySelector('[data-scroll-panel-content]');
 
-      if (image) {
+      if (image && !isCoarsePointer()) {
         gsap.fromTo(
           image,
           { yPercent: -12 },

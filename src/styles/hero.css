@@ -180,6 +180,10 @@
 }
 
 @media (max-width: 900px) {
+  .hero__line {
+    white-space: normal;
+  }
+
   .hero__bottom {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);

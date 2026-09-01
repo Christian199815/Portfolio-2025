@@ -51,14 +51,21 @@ main:focus {
    GLOBAL
    ============================================= */
 html {
-  overflow-x: hidden;
+  /* clip on html only — overflow-x on body breaks iOS momentum scrolling */
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  overflow-x: hidden;
+  touch-action: pan-y;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body.has-custom-cursor,
