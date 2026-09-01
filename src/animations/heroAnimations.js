@@ -1,12 +1,8 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { prefersReducedMotion, shouldUseScrollTriggers } from './device';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
 
 export function initHeroAnimations(scope) {
   if (prefersReducedMotion() || !scope) return () => {};
@@ -32,8 +28,7 @@ export function initHeroAnimations(scope) {
       '-=0.75',
     );
 
-    // Scrubbed parallax fights native touch scrolling on mobile
-    if (!isCoarsePointer()) {
+    if (shouldUseScrollTriggers()) {
       gsap.to(scope.querySelector('.hero__title'), {
         yPercent: -18,
         opacity: 0.15,

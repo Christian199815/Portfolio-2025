@@ -4,37 +4,58 @@ import { initCustomCursor } from './cursor';
 import { initEasterEggs } from './easterEggs';
 import { initMagnetic } from './magnetic';
 import { initSpotlights } from './spotlight';
+import { prefersReducedMotion, shouldUseScrollTriggers } from './device';
 
 gsap.registerPlugin(ScrollTrigger);
 
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
-
 /**
  * Project data and images land after first paint, so the document keeps growing.
  * Without this the progress bar and pinned triggers stay pegged to the old height.
+ * Never refresh mid-scroll — that kills momentum, especially scrolling down on touch.
  */
 function initHeightWatcher() {
-  let timer = null;
-  const refresh = () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => ScrollTrigger.refresh(), 180);
+  let debounceTimer = null;
+  let scrollEndTimer = null;
+  let pendingRefresh = false;
+  let isScrolling = false;
+
+  const runRefresh = () => {
+    pendingRefresh = false;
+    ScrollTrigger.refresh();
   };
 
-  const observer = new ResizeObserver(refresh);
+  const scheduleRefresh = () => {
+    pendingRefresh = true;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (!isScrolling) runRefresh();
+    }, 250);
+  };
+
+  const onScroll = () => {
+    isScrolling = true;
+    clearTimeout(scrollEndTimer);
+    scrollEndTimer = setTimeout(() => {
+      isScrolling = false;
+      if (pendingRefresh) runRefresh();
+    }, 120);
+  };
+
+  const observer = new ResizeObserver(scheduleRefresh);
   observer.observe(document.body);
 
-  window.addEventListener('load', refresh);
-  document.fonts?.ready.then(refresh);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('load', scheduleRefresh);
+  document.fonts?.ready.then(scheduleRefresh);
 
   return () => {
-    clearTimeout(timer);
+    clearTimeout(debounceTimer);
+    clearTimeout(scrollEndTimer);
     observer.disconnect();
-    window.removeEventListener('load', refresh);
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('load', scheduleRefresh);
   };
 }
 
@@ -55,7 +76,7 @@ export function initGlobalAnimations(scope) {
   const cleanHeaderState = initHeaderState();
   const cleanSpotlights = initSpotlights(scope);
 
-  if (prefersReducedMotion()) {
+  if (prefersReducedMotion() || !shouldUseScrollTriggers()) {
     return () => {
       cleanHeaderState();
       cleanSpotlights();
@@ -69,7 +90,7 @@ export function initGlobalAnimations(scope) {
 
   const ctx = gsap.context(() => {
     const progress = document.querySelector('[data-scroll-progress]');
-    if (progress && !isCoarsePointer()) {
+    if (progress) {
       gsap.fromTo(
         progress,
         { scaleX: 0 },

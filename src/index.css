@@ -142,7 +142,6 @@ body,
   flex: 1;
   min-height: 100dvh;
   position: relative;
-  overflow-x: clip;
 }
 
 /* =============================================
@@ -187,6 +186,12 @@ html.konami-active {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .grain {
+    animation: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
   .grain {
     animation: none;
   }

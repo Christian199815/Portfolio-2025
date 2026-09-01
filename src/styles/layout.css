@@ -66,6 +66,12 @@ body {
   html {
     scroll-behavior: auto;
   }
+
+  /* Full-bleed links must not steal vertical swipe gestures */
+  a,
+  button {
+    touch-action: pan-y;
+  }
 }
 
 body.has-custom-cursor,

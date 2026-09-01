@@ -1,22 +1,18 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { shouldUseScrollTriggers } from './device';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
-
 export function initScrollProjectAnimations(scope) {
-  if (prefersReducedMotion() || !scope) return () => {};
+  if (!shouldUseScrollTriggers() || !scope) return () => {};
 
   const ctx = gsap.context(() => {
     scope.querySelectorAll('[data-scroll-panel]').forEach((panel) => {
       const image = panel.querySelector('[data-panel-image]');
       const content = panel.querySelector('[data-scroll-panel-content]');
 
-      if (image && !isCoarsePointer()) {
+      if (image) {
         gsap.fromTo(
           image,
           { yPercent: -12 },
