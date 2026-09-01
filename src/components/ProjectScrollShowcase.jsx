@@ -7,7 +7,7 @@ function FeaturePanel({ project, index, total }) {
       className="feature__panel"
       data-scroll-panel
     >
-      <article className="feature__link">
+      <Link to={`/work/${project.id}`} className="feature__link" data-cursor-hover>
         <div className="feature__media" data-panel-media>
           {project.projectFeaturedImage ? (
             <img
@@ -33,19 +33,12 @@ function FeaturePanel({ project, index, total }) {
             <span className="feature__tags label-caps">
               {[project.category, project.projectDate].filter(Boolean).join(' / ')}
             </span>
-            <Link to={`/work/${project.id}`} className="feature__cta label-caps">
+            <span className="feature__cta label-caps">
               View case study <span aria-hidden="true">↗</span>
-            </Link>
+            </span>
           </div>
         </div>
-
-        <Link
-          to={`/work/${project.id}`}
-          className="feature__stretch-link"
-          aria-label={`View ${project.projectname} case study`}
-          tabIndex={-1}
-        />
-      </article>
+      </Link>
     </li>
   );
 }

@@ -3,6 +3,7 @@
    ============================================= */
 .feature {
   width: 100%;
+  scroll-margin-top: var(--header-height);
 }
 
 .feature__track {
@@ -26,10 +27,8 @@
   touch-action: pan-y;
 }
 
-.feature__stretch-link {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
+.feature__overlay {
+  pointer-events: none;
 }
 
 .feature__cta {
@@ -37,8 +36,6 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--bone);
-  position: relative;
-  z-index: 4;
   transition: color var(--transition-base), gap var(--transition-base);
 }
 
@@ -51,6 +48,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .feature__media img,
@@ -62,6 +60,7 @@
   will-change: transform;
   filter: grayscale(1) contrast(1.05) brightness(0.75);
   transition: filter 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  touch-action: pan-y;
 }
 
 .feature__placeholder {
@@ -75,6 +74,7 @@
 .feature__scrim {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
     linear-gradient(to top, rgba(10, 10, 11, 0.92) 0%, rgba(10, 10, 11, 0.15) 45%, rgba(10, 10, 11, 0.55) 100%);
 }
@@ -113,12 +113,6 @@
 
 .feature__tags {
   color: var(--text-secondary);
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .feature__stretch-link {
-    display: none;
-  }
 }
 
 @media (max-width: 768px) {

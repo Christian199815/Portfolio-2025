@@ -1,18 +1,20 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { shouldUseScrollTriggers } from './device';
+import { prefersReducedMotion, shouldUseScrollTriggers } from './device';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function initScrollProjectAnimations(scope) {
-  if (!shouldUseScrollTriggers() || !scope) return () => {};
+  if (prefersReducedMotion() || !scope) return () => {};
+
+  const useScrub = shouldUseScrollTriggers();
 
   const ctx = gsap.context(() => {
     scope.querySelectorAll('[data-scroll-panel]').forEach((panel) => {
       const image = panel.querySelector('[data-panel-image]');
       const content = panel.querySelector('[data-scroll-panel-content]');
 
-      if (image) {
+      if (image && useScrub) {
         gsap.fromTo(
           image,
           { yPercent: -12 },

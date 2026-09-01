@@ -9,6 +9,7 @@ function lockScroll() {
 
 function unlockScroll() {
   document.documentElement.classList.remove('is-scroll-locked');
+  document.body.style.removeProperty('overflow');
 }
 
 export default function Preloader({ onComplete }) {
@@ -18,6 +19,8 @@ export default function Preloader({ onComplete }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    unlockScroll();
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const alreadySeen = sessionStorage.getItem(SESSION_KEY) === '1';
 

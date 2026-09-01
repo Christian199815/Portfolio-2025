@@ -76,21 +76,24 @@ export function initGlobalAnimations(scope) {
   const cleanHeaderState = initHeaderState();
   const cleanSpotlights = initSpotlights(scope);
 
-  if (prefersReducedMotion() || !shouldUseScrollTriggers()) {
+  if (prefersReducedMotion()) {
     return () => {
       cleanHeaderState();
       cleanSpotlights();
     };
   }
 
-  const cleanHeightWatcher = initHeightWatcher();
+  const useScrub = shouldUseScrollTriggers();
+  const cleanHeightWatcher = useScrub ? initHeightWatcher() : () => {};
 
-  initCustomCursor();
-  const cleanMagnetic = initMagnetic(document);
+  if (useScrub) {
+    initCustomCursor();
+  }
+  const cleanMagnetic = useScrub ? initMagnetic(document) : () => {};
 
   const ctx = gsap.context(() => {
     const progress = document.querySelector('[data-scroll-progress]');
-    if (progress) {
+    if (progress && useScrub) {
       gsap.fromTo(
         progress,
         { scaleX: 0 },
