@@ -7,6 +7,7 @@ import fs from 'fs/promises';
 import dotenv from 'dotenv';
 dotenv.config();
 import { sendEmail, initializeTransporter, CONTACT_RECIPIENT } from './email.js';
+import { initCms } from './cms/index.js';
 
 const _DebugBool = true;
 const _fileName = "server";
@@ -112,6 +113,8 @@ async function fetchFromPrepr(query, variables = {}) {
         return null;
     }
 }
+
+const cms = initCms(fetchFromPrepr);
 
 function ensureAbsolutePaths(project) {
   // Deep clone the project
@@ -394,6 +397,52 @@ function uniqueValues(projects, prop) {
     .sort();
 }
 
+function filterByIndustry(projects, industry) {
+  if (!industry) return projects;
+  const key = industry.toLowerCase();
+  if (key === 'web') {
+    return projects.filter((p) => p.category?.toLowerCase().includes('web'));
+  }
+  if (key === 'game') {
+    return projects.filter((p) => p.category?.toLowerCase().includes('game'));
+  }
+  return projects;
+}
+
+function normalizeProjectForApi(project) {
+  const clone = JSON.parse(JSON.stringify(project));
+  const fixUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    if (url.startsWith('./')) return url.replace(/^\.\//, '/');
+    if (url.startsWith('/resources/')) return url;
+    return `/resources/${url.replace(/^\//, '')}`;
+  };
+
+  clone.projectFeaturedImage = fixUrl(clone.projectFeaturedImage);
+  clone.projectImages = (clone.projectImages || []).map(fixUrl);
+
+  if (Array.isArray(clone.projectProgress)) {
+    clone.projectProgress.forEach((progress) => {
+      if (Array.isArray(progress.progressContent)) {
+        progress.progressContent.forEach((content) => {
+          if (content.url) content.url = fixUrl(content.url);
+        });
+      }
+    });
+  }
+
+  return clone;
+}
+
+function getProjectFilterOptions(projects) {
+  return {
+    categories: uniqueValues(projects, 'category'),
+    productTypes: uniqueValues(projects, 'typeOfProduct'),
+    projectTypes: uniqueValues(projects, 'typeOfProject'),
+  };
+}
+
 // Then define the middleware setup function
 async function setupMiddleware() {
   app.use(logger());
@@ -443,7 +492,7 @@ app.listen(3000, () => console.log('Server available on http://localhost:3000'))
 app.get('/', async (req, res) => {
   const projects = await loadAllProjectData();
   const randomProjects = getRandomProjects(projects, 3);
-  const featuredProjects = getRandomProjects(projects, 3);
+  const featuredProjects = getRandomProjects(projects, 4);
   const testProjects = projects.filter(project => 
       project.typeOfProject?.toLowerCase().includes('test project'));
   
@@ -486,7 +535,7 @@ app.get('/', async (req, res) => {
 app.get('/bento', async (req, res) => {
   const projects = await loadAllProjectData();
   const randomProjects = getRandomProjects(projects, 3);
-  const featuredProjects = getRandomProjects(projects, 3);
+  const featuredProjects = getRandomProjects(projects, 4);
   const testProjects = projects.filter(project =>
     project.typeOfProject?.toLowerCase().includes('test project')
   );
@@ -648,9 +697,45 @@ app.get('/project/:id', async (req, res) => {
     }));
   });
 
-  // Contact form email route
-// Contact form email route
-// Contact form email route
+app.get('/api/projects', async (req, res) => {
+  try {
+    const projects = await loadAllProjectData();
+    const { category, productType, projectType, sortBy, industry } = req.query;
+
+    let filtered = filterByIndustry(projects, industry);
+    filtered = applyFilters(filtered, {
+      category: category || '',
+      productType: productType || '',
+      projectType: projectType || '',
+      sortBy: sortBy || 'newest',
+    });
+
+    const normalized = filtered.map(normalizeProjectForApi);
+    const options = getProjectFilterOptions(projects);
+
+    return res.json({ projects: normalized, ...options });
+  } catch (error) {
+    log(_fileName, _DebugBool, `API /api/projects error: ${error.message}`);
+    return res.status(500).json({ error: 'Failed to load projects' });
+  }
+});
+
+app.get('/api/projects/:id', async (req, res) => {
+  try {
+    const projects = await loadAllProjectData();
+    const project = projects.find((p) => p.id === req.params.id);
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    return res.json({ project: normalizeProjectForApi(project) });
+  } catch (error) {
+    log(_fileName, _DebugBool, `API /api/projects/:id error: ${error.message}`);
+    return res.status(500).json({ error: 'Failed to load project' });
+  }
+});
+
 app.post('/api/send-contact-email', async (req, res) => {
   try {
     const { from, to, message } = req.body;

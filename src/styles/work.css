@@ -1,0 +1,210 @@
+/* =============================================
+   WORK PAGE
+   ============================================= */
+.work-page__header {
+  margin-bottom: var(--spacing-2xl);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-xl);
+}
+
+.work-page__title {
+  font-family: var(--font-serif);
+  font-size: var(--heading-page);
+  line-height: var(--line-height-mega);
+  letter-spacing: var(--letter-spacing-mega);
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 var(--spacing-lg);
+}
+
+.work-page__title em {
+  font-style: italic;
+  color: var(--acid);
+}
+
+.work-page__header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-md);
+}
+
+.work-page__intro {
+  margin: 0;
+  color: var(--text-muted);
+  max-width: 48ch;
+}
+
+.work-page__tally {
+  color: var(--acid);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---- Tabs + view toggle ---- */
+.work-page__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.work-page__tabs {
+  display: flex;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  width: fit-content;
+  overflow: hidden;
+}
+
+.work-page__tab {
+  padding: 0.65rem 1.6rem;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.work-page__tab.is-active {
+  background: var(--acid);
+  color: var(--ink);
+}
+
+.work-page__tab:hover:not(.is-active) {
+  color: var(--bone);
+  background: var(--bg-hover-color);
+}
+
+.work-page__views {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.work-page__view {
+  background: none;
+  border: none;
+  padding: 0.25rem 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.work-page__view:hover {
+  color: var(--bone);
+}
+
+.work-page__view.is-active {
+  color: var(--acid);
+  border-bottom-color: var(--acid);
+}
+
+/* ---- Filters ---- */
+.work-page__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  margin-bottom: var(--spacing-2xl);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.work-page__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.work-page__clear {
+  background: none;
+  border: none;
+  color: var(--acid);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.work-page__sort {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-faint);
+}
+
+/* ---- Grid ---- */
+.work-page__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+}
+
+/* Every fifth card runs full width to break the rhythm */
+.work-page__item:nth-child(5n + 1) {
+  grid-column: 1 / -1;
+}
+
+.work-page__item:nth-child(5n + 1) .project-card__image {
+  aspect-ratio: 21 / 9;
+}
+
+.work-page__item:nth-child(5n + 1) .project-card__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.work-page__status {
+  color: var(--text-muted);
+  padding: var(--spacing-2xl) 0;
+}
+
+.work-page__status--error {
+  color: #ff6b5e;
+}
+
+@media (max-width: 768px) {
+  .work-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-page__item:nth-child(5n + 1) .project-card__image {
+    aspect-ratio: 16 / 10;
+  }
+
+  .work-page__bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .work-page__tabs {
+    width: 100%;
+  }
+
+  .work-page__tab {
+    flex: 1;
+    text-align: center;
+  }
+}

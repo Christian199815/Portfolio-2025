@@ -1,0 +1,6 @@
+# Vite lives in devDependencies; keep it available for `npm run build`.
+[variables]
+NPM_CONFIG_PRODUCTION = "false"
+
+[start]
+cmd = "npm start"

@@ -1,0 +1,126 @@
+/* =============================================
+   FEATURED WORK — full-bleed parallax panels
+   ============================================= */
+.feature {
+  width: 100%;
+}
+
+.feature__track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.feature__panel {
+  position: relative;
+  scroll-margin-top: var(--header-height);
+}
+
+.feature__link {
+  display: block;
+  position: relative;
+  height: 92svh;
+  min-height: 520px;
+  overflow: hidden;
+  color: var(--bone);
+}
+
+.feature__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.feature__media img,
+.feature__placeholder {
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  filter: grayscale(1) contrast(1.05) brightness(0.75);
+  transition: filter 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.feature__placeholder {
+  background: linear-gradient(135deg, #1b1b1f 0%, #0e0e10 60%, #17171b 100%);
+}
+
+.feature__link:hover .feature__media img {
+  filter: grayscale(0) contrast(1) brightness(0.95);
+}
+
+.feature__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(10, 10, 11, 0.92) 0%, rgba(10, 10, 11, 0.15) 45%, rgba(10, 10, 11, 0.55) 100%);
+}
+
+.feature__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  z-index: 2;
+}
+
+.feature__num {
+  color: var(--acid);
+}
+
+.feature__title {
+  font-size: var(--type-giant);
+  line-height: var(--line-height-mega);
+  letter-spacing: var(--letter-spacing-mega);
+  margin: auto 0 var(--spacing-lg);
+  max-width: 14ch;
+}
+
+.feature__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(242, 239, 233, 0.25);
+}
+
+.feature__tags {
+  color: var(--text-secondary);
+}
+
+.feature__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--bone);
+  transition: color var(--transition-base), gap var(--transition-base);
+}
+
+.feature__link:hover .feature__cta {
+  color: var(--acid);
+  gap: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .feature__link {
+    height: 70svh;
+    min-height: 420px;
+  }
+
+  .feature__media img {
+    filter: grayscale(0) brightness(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature__media img,
+  .feature__placeholder {
+    height: 100%;
+    transition: none;
+  }
+}

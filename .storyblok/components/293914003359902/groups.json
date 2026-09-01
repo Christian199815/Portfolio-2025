@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Layout",
+    "uuid": "grp-layout-001"
+  },
+  {
+    "name": "Content",
+    "uuid": "grp-content-001"
+  },
+  {
+    "name": "Portfolio",
+    "uuid": "grp-portfolio-001"
+  }
+]

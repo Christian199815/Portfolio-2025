@@ -1,24 +1,40 @@
 body {
-  font-family: "Atkinson Hyperlegible", sans-serif;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.h1 {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  font-weight: 700;
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
-.h2 {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-  font-weight: 700;
+.display-serif {
+  font-family: var(--font-serif);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: -0.02em;
 }
 
-p{
-  font-family: "Atkinson Hyperlegible", sans-serif;
-  line-height: 1.25;
+.italic-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--font-weight-normal);
 }
 
+.label-caps {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+p {
+  font-family: var(--font-sans);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-secondary);
+}

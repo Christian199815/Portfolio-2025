@@ -1,0 +1,183 @@
+[
+  {
+    "name": "page",
+    "display_name": "Page",
+    "schema": {
+      "body": {
+        "type": "bloks",
+        "pos": 0,
+        "restrict_components": true,
+        "component_whitelist": [
+          "hero",
+          "text_block",
+          "cta_banner",
+          "contact_section",
+          "process_list",
+          "portfolio_grid",
+          "quote",
+          "grid",
+          "teaser",
+          "skills_section"
+        ]
+      }
+    },
+    "is_root": true,
+    "is_nestable": false,
+    "component_group_uuid": "grp-layout-001"
+  },
+  {
+    "name": "hero",
+    "display_name": "Hero",
+    "schema": {
+      "eyebrow": { "type": "text", "pos": 0, "default_value": "Chris" },
+      "title": { "type": "text", "pos": 1, "default_value": "—Donker" },
+      "description": { "type": "textarea", "pos": 2 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "text_block",
+    "display_name": "Text Block",
+    "schema": {
+      "eyebrow": { "type": "text", "pos": 0 },
+      "headline": { "type": "text", "pos": 1 },
+      "body": { "type": "textarea", "pos": 2 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "cta_banner",
+    "display_name": "CTA Banner",
+    "schema": {
+      "headline": { "type": "text", "pos": 0 },
+      "text": { "type": "textarea", "pos": 1 },
+      "button_label": { "type": "text", "pos": 2, "default_value": "Get in touch" },
+      "button_url": { "type": "text", "pos": 3, "default_value": "mailto:chris@example.com" }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "contact_section",
+    "display_name": "Contact Section",
+    "schema": {
+      "name": { "type": "text", "pos": 0, "default_value": "Chris Donker" },
+      "role": { "type": "text", "pos": 1, "default_value": "Frontend Developer" },
+      "email": { "type": "text", "pos": 2 },
+      "bio": { "type": "textarea", "pos": 3 },
+      "linkedin_url": { "type": "text", "pos": 4 },
+      "github_url": { "type": "text", "pos": 5 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "process_step",
+    "display_name": "Process Step",
+    "schema": {
+      "title": { "type": "text", "pos": 0 },
+      "description": { "type": "textarea", "pos": 1 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "process_list",
+    "display_name": "Process List",
+    "schema": {
+      "headline": { "type": "text", "pos": 0, "default_value": "How I work" },
+      "steps": {
+        "type": "bloks",
+        "pos": 1,
+        "restrict_components": true,
+        "component_whitelist": ["process_step"]
+      }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "portfolio_item",
+    "display_name": "Portfolio Item",
+    "schema": {
+      "title": { "type": "text", "pos": 0 },
+      "description": { "type": "textarea", "pos": 1 },
+      "image": { "type": "asset", "pos": 2, "filetypes": ["images"] },
+      "tags": { "type": "text", "pos": 3, "description": "Comma-separated tags" },
+      "url": { "type": "text", "pos": 4 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-portfolio-001"
+  },
+  {
+    "name": "portfolio_grid",
+    "display_name": "Portfolio Grid",
+    "schema": {
+      "headline": { "type": "text", "pos": 0, "default_value": "Selected work" },
+      "intro": { "type": "textarea", "pos": 1 },
+      "items": {
+        "type": "bloks",
+        "pos": 2,
+        "restrict_components": true,
+        "component_whitelist": ["portfolio_item"]
+      }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-portfolio-001"
+  },
+  {
+    "name": "quote",
+    "display_name": "Quote",
+    "schema": {
+      "text": { "type": "textarea", "pos": 0 },
+      "author": { "type": "text", "pos": 1 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "grid",
+    "display_name": "Feature Grid",
+    "schema": {
+      "columns": {
+        "type": "bloks",
+        "pos": 0,
+        "restrict_components": true,
+        "component_whitelist": ["feature"]
+      }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "feature",
+    "display_name": "Feature",
+    "schema": {
+      "name": { "type": "text", "pos": 0 },
+      "description": { "type": "textarea", "pos": 1 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "teaser",
+    "display_name": "Teaser",
+    "schema": {
+      "headline": { "type": "text", "pos": 0 },
+      "text": { "type": "textarea", "pos": 1 }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-content-001"
+  },
+  {
+    "name": "skills_section",
+    "display_name": "Skills Section",
+    "schema": {
+      "headline": { "type": "text", "pos": 0, "default_value": "Enter a World" }
+    },
+    "is_nestable": true,
+    "component_group_uuid": "grp-portfolio-001"
+  }
+]

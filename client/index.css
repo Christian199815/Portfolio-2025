@@ -18,16 +18,12 @@
 /* @import '@components/card/card.css'; */
 @import '@components/project-card/project-card.css';
 @import '@components/contact-button/contact-button.css';
-@import '@components/discipline-links/discipline-links.css';
-@import '@components/rolling-text/rolling-text.css';
-@import '@components/push-text/push-text.css';
-@import '@components/under-construction/under-contstruction.css';
 @import '@components/theme-toggle/theme-toggle.css';
 @import '@components/settings-menu/settings-menu.css';
 
 
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* This will be overridden by the theme variables in base.css */
 

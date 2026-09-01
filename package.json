@@ -1,45 +1,35 @@
 {
-  "name": "api-2425",
-  "version": "1.0.0",
-  "description": "In dit vier weken durende vak zullen we de kracht van het web ervaren en kijken hoe we (mobiele) web apps kunnen maken die\nnet zo aantrekkelijk zijn als native mobiele apps.",
+  "name": "chris-portfolio",
+  "version": "2.0.0",
+  "private": true,
   "type": "module",
-  "nodemonConfig": {
-    "watch": [
-      "server/",
-      "public/",
-      "dist/"
-    ],
-    "ext": "js,json,css,liquid"
-  },
   "scripts": {
-    "clean": "rimraf dist && mkdir dist",
-    "start": "node server/server.js",
-    "predev": "npm run clean && npm run build",
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:client": "chokidar 'client/**/*' -c 'npm run build:client'",
-    "dev:css": "chokidar 'server/**/*.css' -c 'npm run build:client'",
-    "dev:server": "nodemon server/server.js",
-    "prebuild": "npm run clean",
-    "build": "npm-run-all build:*",
-    "build:client": "vite build && cpy 'client/public/**/*' dist"
+    "dev": "vite",
+    "build": "vite build",
+    "start": "node server/prod.js",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "storyblok:push-components": "storyblok components push --space 293914003359902",
+    "storyblok:seed": "node scripts/seed-storyblok.mjs"
   },
-  "license": "MIT",
   "dependencies": {
-    "@tinyhttp/app": "^2.5.2",
-    "@tinyhttp/logger": "^2.1.0",
-    "chokidar-cli": "^3.0.0",
-    "cpy-cli": "^5.0.0",
-    "dotenv": "^16.5.0",
-    "liquidjs": "^10.21.0",
-    "nodemailer": "^7.0.3",
-    "nodemon": "^3.1.9",
-    "npm-run-all": "^4.1.5",
-    "sirv": "^3.0.1",
-    "vite": "^6.2.3"
+    "@storyblok/react": "^5.0.0",
+    "gsap": "^3.15.0",
+    "nodemailer": "^9.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.0"
   },
   "devDependencies": {
-    "rimraf": "^6.0.1"
-  },
-  "main": "vite.config.js",
-  "author": ""
+    "@eslint/js": "^9.27.0",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.1.0",
+    "vite": "^6.3.5",
+    "vite-plugin-mkcert": "^1.17.8"
+  }
 }

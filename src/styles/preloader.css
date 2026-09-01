@@ -1,0 +1,72 @@
+/* =============================================
+   PRELOADER
+   ============================================= */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--container-padding);
+  will-change: transform;
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding-bottom: var(--spacing-xl);
+}
+
+.preloader__name {
+  font-size: var(--type-mega);
+  margin: 0;
+  color: var(--bone);
+}
+
+.preloader__name .line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.preloader__name span[data-loader-word] {
+  display: block;
+}
+
+.preloader__name .line-mask:last-child span {
+  color: var(--acid);
+}
+
+.preloader__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  color: var(--text-muted);
+}
+
+.preloader__count {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-variant-numeric: tabular-nums;
+  color: var(--bone);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.preloader__bar {
+  height: 2px;
+  width: 100%;
+  background: var(--ink-line);
+  overflow: hidden;
+}
+
+.preloader__bar-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--acid);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}

@@ -1,0 +1,87 @@
+/* =============================================
+   SPOTLIGHT REVEAL — hidden until the cursor finds it
+   ============================================= */
+.spotlight {
+  --sx: -9999px;
+  --sy: -9999px;
+  --spot-r: 120px;
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.spotlight--block {
+  display: block;
+}
+
+.spotlight__ghost {
+  display: block;
+  color: var(--bone);
+  opacity: 0.055;
+  transition: opacity var(--transition-base);
+}
+
+.spotlight__lit {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: var(--acid);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease-out);
+  -webkit-mask-image: radial-gradient(
+    circle var(--spot-r) at var(--sx) var(--sy),
+    #000 0%,
+    rgba(0, 0, 0, 0.6) 55%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    circle var(--spot-r) at var(--sx) var(--sy),
+    #000 0%,
+    rgba(0, 0, 0, 0.6) 55%,
+    transparent 78%
+  );
+}
+
+.spotlight.is-lit .spotlight__lit {
+  opacity: 1;
+}
+
+.spotlight.is-lit .spotlight__ghost {
+  opacity: 0.02;
+}
+
+/* The cursor widens into an actual spotlight over a hidden zone */
+body.is-spotlighting .custom-cursor-follower {
+  width: 104px;
+  height: 104px;
+  border-color: rgba(214, 255, 75, 0.55);
+  background-color: rgba(214, 255, 75, 0.05);
+  mix-blend-mode: normal;
+}
+
+body.is-spotlighting .custom-cursor {
+  width: 4px;
+  height: 4px;
+}
+
+/* Glyph rows get more room to breathe */
+.spotlight--glyphs {
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.5em;
+}
+
+/* Nothing to hover with, so the secret would just read as faded text */
+@media (pointer: coarse) {
+  .spotlight {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight__lit {
+    transition: none;
+  }
+}

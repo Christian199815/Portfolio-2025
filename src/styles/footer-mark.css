@@ -1,0 +1,36 @@
+/* =============================================
+   FOOTER EASTER EGG — the roaming asterisk
+   ============================================= */
+.egg-mark {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.egg-mark__star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  color: var(--acid);
+  cursor: grab;
+  pointer-events: auto;
+  user-select: none;
+  will-change: transform;
+}
+
+.egg-mark__star:active {
+  cursor: grabbing;
+}
+
+/* Don't intercept the click it's currently running away from */
+.egg-mark__star.is-fleeing {
+  pointer-events: none;
+}
+
+@media (pointer: coarse) {
+  .egg-mark {
+    display: none;
+  }
+}

@@ -1,0 +1,59 @@
+/* =============================================
+   MARQUEE TICKER
+   ============================================= */
+.marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--spacing-md) 0;
+  background: var(--ink-raised);
+  user-select: none;
+}
+
+.marquee__run {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: marquee-scroll 32s linear infinite;
+}
+
+.marquee:hover .marquee__run {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--text-secondary);
+}
+
+.marquee__item:nth-child(even) {
+  font-style: italic;
+  color: var(--bone);
+}
+
+.marquee__sep {
+  font-family: var(--font-sans);
+  font-size: 0.45em;
+  color: var(--acid);
+}
+
+@keyframes marquee-scroll {
+  to { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__run {
+    animation: none;
+  }
+}

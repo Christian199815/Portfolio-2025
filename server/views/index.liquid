@@ -2,177 +2,101 @@
 
 {% block content %}
 
-<section id="intro-section" aria-labelledby="intro-heading">
-  <h1 id="intro-heading" class="sr-only">Chris - Frontend Developer Portfolio</h1>
-  <ul class="image-stairs" id="image-stairs" role="list" aria-label="Featured project images">
-    {% for stair in imageStairs %}
-      <li>
-        <a href="{{ stair.link }}" aria-label="View project: {{ stair.alt }}">
-         <img src="{{ stair.src }}" alt="{{ stair.alt }}" loading="lazy" />
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-  <article>
-    {% render '../components/rolling-text/rolling-text.liquid' %}
-    {% render '../components/push-text/push-text.liquid' %}
-    {% comment %} <h2>Frontend Developer</h2> {% endcomment %}
-    <p class="content-block">
-      Hey, welcome to my portfolio! I’m Chris a tall, passionate builder of web and game experiences. Take a look around and check out the projects I’ve worked on!
-    </p>
-    {% render '../components/contact-button/contact-button.liquid' %}
-  </article>
-</section>
+<!-- Hero -->
+<section id="hero-section" class="hero" aria-labelledby="hero-heading" data-animate="hero">
+  <h1 id="hero-heading" class="sr-only">Chris Donker — Frontend Developer Portfolio</h1>
 
-<!-- disciplines -->
-<section id="discipline-section">
-
-  <!-- Discpline links, hover to change image -->
-  {% render '../components/discipline-links/discipline-links.liquid', disciplineProjects: disciplineProjects %}
-  {% comment %} {% render '../components/contact-button/contact-button.liquid' %} {% endcomment %}
-</section>
-
-<!-- Highlighted projects -->
-<section id="featured-work-section" aria-labelledby="featured-work-heading">
-  <article class="heading-block">
-    <h2 id="featured-work-heading">Featured Work</h2>
-    <p class="content-block">
-      These are a few projects I’ve worked on in the past. Each one shaped by creativity, problem-solving, and a passion for building.
-    </p>
-    {% render '../components/contact-button/contact-button.liquid' %}
-  </article>
-  <ul id="featured-projects-list" role="list" aria-label="Featured projects">
-    {% for project in featuredProjects %}
-    <li>
-      <a href="/project/{{ project.id }}" aria-label="View {{ project.projectname }} project details">
-      <div>
-        <h3>{{ project.projectname }}</h3>
-        <p>{{ project.projectFeaturedText | default: 'Project description coming soon...' }}</p>
-      </div>
-      <img src="{{ project.projectFeaturedImage }}" alt="Featured image of {{ project.projectname }}" loading="lazy" />
-      <p aria-hidden="true">View Project</p>
-     </a>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-
-<!-- Expertises / Skills -->
-<section id="expertises-section" aria-labelledby="expertises-heading">
-  <div>
-    <h2 id="expertises-heading">My Expertises</h2>
-    <p class="contact-block">
-      Over the past few years, I’ve grown my skill set across both web and game development, ranging from coding and design to user experience and interactive storytelling. Each project has helped me sharpen my expertise and explore new creative challenges.
-    </p>
-    {% render '../components/contact-button/contact-button.liquid' %}
+  <div class="hero__title-block">
+    <span class="hero__eyebrow label-caps" data-hero="eyebrow">Chris</span>
+    <h2 class="hero__title display-serif" data-hero="title">—Donker</h2>
+    <div class="hero__stars" data-hero="stars" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.8 5.5H16l-4.5 3.3 1.7 5.5L8 11l-5.2 3.3 1.7-5.5L0 5.5h6.2z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.8 5.5H16l-4.5 3.3 1.7 5.5L8 11l-5.2 3.3 1.7-5.5L0 5.5h6.2z"/></svg>
+    </div>
   </div>
-  <ul role="list" aria-label="List of expertises">
-    <li>
-      <h3>Agile Workflow</h3>
-      <hr aria-hidden="true">
-      {% comment %} <p>
-        Through working with Agile workflows and Scrum, I’ve learned how to break projects into smaller, manageable tasks and tackle them in focused sprints. This step-by-step approach helps me stay organized, adapt quickly, and steadily build toward the bigger picture.
-      </p> {% endcomment %}
-    </li>
-    <li>
-      <h3>Leading Role</h3>
-      <hr aria-hidden="true">
-      {% comment %} <p>
-        In group projects, I enjoy taking on a leading role—bringing out the strengths of each team member while creating space for everyone to grow. I believe in guiding a team with structure and support, but always staying open to learning and development along the way.
-      </p> {% endcomment %}
-    </li>
-    <li>
-      <h3>Problem Solving</h3>
-      <hr aria-hidden="true">
-      {% comment %} <p>
-        When I’m given an assignment or faced with a problem, I like to dive right in. I enjoy exploring solutions by combining what I already know with what I can learn—whether that’s through research, experimenting, or asking the people around me.
-      </p> {% endcomment %}
-    </li>
-    <li>
-      <h3>Coding Help</h3>
-      <hr aria-hidden="true">
-      {% comment %} <p>
-        When helping others with coding problems, I focus on guiding them to understand the core concepts behind the issue. I believe it’s more valuable to steer them toward discovering solutions themselves, so they build confidence and skills—because simply giving the answer doesn’t help in the long run.
-      </p> {% endcomment %}
-    </li>
-    <li>
-      <h3>Digital Creative</h3>
-      <hr aria-hidden="true">
-      {% comment %} <p>
-        I work with a variety of tools to bring ideas to life—from coding in VS Code and building games in Unity, to editing videos in Final Cut Pro and designing prototypes and presentations in Figma. Each program helps me tackle different creative and technical challenges effectively.
-      </p> {% endcomment %}
-    </li>
+
+  <div class="hero__grid">
+    <aside class="hero__contact" data-hero="contact">
+      <a href="mailto:chris@example.com" class="hero__contact-link" data-cursor-hover>chris@example.com</a>
+      <a href="/contact" class="hero__contact-link" data-cursor-hover>Let's connect</a>
+      <ul role="list" class="hero__social" aria-label="Social links">
+        <li>
+          <a href="https://www.linkedin.com/in/chris-donker/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-cursor-hover>
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Christian199815" target="_blank" rel="noopener noreferrer" aria-label="GitHub" data-cursor-hover>
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <article class="hero__intro" data-hero="intro">
+      <p class="hero__description">
+        Hey, welcome to my portfolio! I'm Chris — a passionate builder of web and game experiences. Take a look around and check out the projects I've worked on.
+      </p>
+      <a href="/bento" class="btn btn--pill" data-cursor-hover>Read more</a>
+    </article>
+  </div>
+
+  <ul class="hero__gallery" role="list" aria-label="Featured project previews">
+    {% for stair in imageStairs %}
+      <li class="hero-card hero-card--{{ forloop.index }}" data-hero="card" data-cursor-hover>
+        <a href="{{ stair.link }}" aria-label="View project: {{ stair.alt }}">
+          <img src="{{ stair.src }}" alt="{{ stair.alt }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" />
+        </a>
+      </li>
+    {% endfor %}
   </ul>
 </section>
 
-<!-- Currently Working -->
-<section id="current-work-section" aria-labelledby="current-work-heading">
-  <article class="heading-block">
-    <h2 id="current-work-heading">Projects I'm currently working on!</h2>
-    <p class="content-block">
-      Here's a sneak peek at some of the projects I'm currently working on. These ongoing experiments help me sharpen my skills and explore new ideas and techniques.
-    </p>
-    {% render '../components/contact-button/contact-button.liquid' %}
-  </article>
-  <div id="projects-carousel" class="carousel-container" role="region" aria-roledescription="carousel" aria-label="Current projects carousel">
-    <ul class="carousel-track" data-carousel role="list" aria-label="Project slides">
-      {% for project in testProjects %}
-      <li data-slide class="{% if forloop.first %}active{% endif %}" role="group" aria-roledescription="slide" aria-label="Slide {{ forloop.index }} of {{ testProjects.size }}">
-        <a href="/project/{{ project.id }}" class="project-link" aria-label="View {{ project.projectname }} project">
-          <img src="{{ project.projectFeaturedImage }}" alt="Featured image of {{ project.projectname }}" loading="lazy" />
-          <h3 class="project-title">{{ project.projectname }}</h3>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-    
-    <div class="carousel-controls" role="group" aria-label="Carousel navigation">
-      <button class="prev-slide" type="button" aria-label="Previous slide" aria-controls="projects-carousel">&#10094;</button>
-      <div class="carousel-dots" role="tablist" aria-label="Slide indicators">
-        {% for project in testProjects %}
-        <button type="button" class="dot {% if forloop.first %}active{% endif %}" data-slide-index="{{ forloop.index0 }}" role="tab" aria-label="Go to slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
-        {% endfor %}
-      </div>
-      <button class="next-slide" type="button" aria-label="Next slide" aria-controls="projects-carousel">&#10095;</button>
+<!-- Process -->
+<section id="process-section" class="process" aria-labelledby="process-heading" data-process-section data-reveal>
+  <h2 id="process-heading" class="process__heading">A Methodical Process For Maximum Results.</h2>
+
+  <div class="process__diagram" aria-label="Design process steps">
+    <div class="process__circle" data-process-circle>
+      <span class="label-caps">Discovery</span>
+    </div>
+    <div class="process__circle" data-process-circle>
+      <span class="label-caps">Research</span>
+    </div>
+    <div class="process__circle process__circle--active" data-process-circle>
+      <span class="label-caps">Design</span>
+    </div>
+    <div class="process__circle" data-process-circle>
+      <span class="label-caps">Iteration</span>
+    </div>
+    <div class="process__circle" data-process-circle>
+      <span class="label-caps">Ready</span>
     </div>
   </div>
 </section>
 
-<!-- Friends and coworkers section -->
-{% comment %} <section id="recommendations-section">
-  <article class="heading-block">
-    <h2>People say about me!</h2>
-    <p class="content-block">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit voluptatum recusandae quas tenetur earum. Repellat similique in quasi nemo provident iste debitis, mollitia rem architecto. Autem dolorum ducimus ipsa ipsam.</p>
-    {% render '../components/contact-button/contact-button.liquid' %}
-  </article>
+<!-- Portfolio -->
+<section id="portfolio-section" class="portfolio" aria-labelledby="portfolio-heading" data-reveal>
+  <h2 id="portfolio-heading" class="portfolio__heading">Showcasing My Most Recent Projects.</h2>
 
-  <div>
-    <h3>Person A</h3>
-    <h4>Person A title</h4>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-      labore quis reiciendis tenetur dolores aliquid ad laboriosam eius
-      repellendus, doloribus natus, quasi dicta obcaecati praesentium
-      nihil in fugiat voluptate fuga!
-    </p>
-    <img src="./images/img-placeholder.png" alt="photo of person A" />
-  </div>
-  <div>
-    <h3>Person A</h3>
-    <h4>Person A title</h4>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-      labore quis reiciendis tenetur dolores aliquid ad laboriosam eius
-      repellendus, doloribus natus, quasi dicta obcaecati praesentium
-      nihil in fugiat voluptate fuga!
-    </p>
-    <img src="./images/img-placeholder.png" alt="photo of person A" />
-  </div>
-</section> {% endcomment %}
+  <ul class="portfolio__grid" role="list" data-reveal-stagger aria-label="Featured projects">
+    {% for project in featuredProjects %}
+      <li data-reveal-item>
+        <article class="portfolio-card" data-cursor-hover>
+          <a href="/project/{{ project.id }}" class="portfolio-card__link" aria-label="View {{ project.projectname }}">
+            <figure class="portfolio-card__image">
+              <img src="{{ project.projectFeaturedImage }}" alt="Featured image of {{ project.projectname }}" loading="lazy" />
+            </figure>
+            <div class="portfolio-card__meta">
+              <h3 class="portfolio-card__title">{{ project.projectname }}</h3>
+              <time class="portfolio-card__year" datetime="{{ project.projectDate }}">{{ project.projectDate }}</time>
+            </div>
+            <p class="portfolio-card__desc">{{ project.projectFeaturedText | default: 'Project description coming soon...' }}</p>
+          </a>
+        </article>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
 
-{% render '../components/under-construction/under-construction.liquid' %}
-
-<script>
-  window.disciplineProjects = {{ disciplineProjects | json }};
-</script>
 {% endblock %}

@@ -14,81 +14,68 @@
 </head>
 
 <body data-auto-init-popovers>
-  <!-- Skip Links for Screen Readers -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <a href="#primary-navigation" class="skip-link">Skip to navigation</a>
   <a href="#site-footer" class="skip-link">Skip to footer</a>
 
-  <!-- Live Region Announcer for Screen Readers -->
   <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
   <div id="sr-announcer-assertive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
 
-  <!-- Settings Menu -->
   {% render '../components/settings-menu/settings-menu.liquid' %}
-  
-  <header role="banner">
-    <nav id="primary-navigation" aria-label="Primary navigation">
-      <!-- Logo -->
-      <a href="/" aria-label="Chris - Home">
-        <img src="../../public/images/Chris.svg" alt="" aria-hidden="true" />
-      </a>
-      <ul role="list">
+
+  <header role="banner" class="site-header" data-animate="header">
+    <nav id="primary-navigation" class="site-nav" aria-label="Primary navigation">
+      <a href="/" class="site-logo" aria-label="Chris — Home">Chris</a>
+
+      <ul role="list" class="site-nav__links">
+        <li><a href="/#skills-section">Skills</a></li>
         <li><a href="/bento">Work</a></li>
-        {% comment %} <li><a href="/about">About</a></li> {% endcomment %}
         <li><a href="/contact">Contact</a></li>
       </ul>
+
+      <a href="/contact" class="site-nav__cta" data-cursor-hover>Get in touch</a>
     </nav>
   </header>
 
   <main id="main-content" role="main" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
-  <footer id="site-footer" role="contentinfo">
-    <div>
-      <section aria-labelledby="footer-connect-heading">
-        <a href="/" aria-label="Chris - Home">
-          <img src="./images/Chris.svg" alt="" aria-hidden="true" />
-        </a>
-        <h2 id="footer-connect-heading">Let's Connect!</h2>
-        <p class="content-block">Got questions about my work or ideas you'd like to share? Feel free to reach out—I'd love to have a chat!</p>
-        <button class="contact-link" data-contact-button aria-label="Open contact form">Reach out!</button>
-      </section>
-      <img src="/public/images/baard-chris.webp" alt="Photo of Chris" />
-      <div>
-        <nav aria-label="Page sections">
-          <ul role="list">
-            <li><a href="/#intro-section">Start</a></li>
-            {% comment %} <li><a href="#discipline-section">My disciplines</a></li> {% endcomment %}
-            <li><a href="/#featured-work-section">Featured Work</a></li>
-            <li><a href="/#expertises-section">My Expertises</a></li>
-            <li><a href="/#current-work-section">Current Projects</a></li>
-            {% comment %} <li><a href="#recommendations-section">Recommendations</a></li> {% endcomment %}
-          </ul>
-        </nav>
 
-        <nav aria-label="Footer navigation">
-          <ul role="list">
-            <li><a href="/bento">My Work</a></li>
-            <li><a href="/contact">Let's Connect</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>  
-    <hr aria-hidden="true" />
-    <div>
-      <p><small>&copy; Chris 2025</small></p>
-      <ul role="list" aria-label="Social media links">
+  <footer id="site-footer" class="site-footer" role="contentinfo" data-animate="footer">
+    <div class="site-footer__hero">
+      <h2 class="site-footer__title display-serif" data-footer-reveal>
+        Get in <em>touch</em>
+      </h2>
+      <a href="mailto:chris@example.com" class="site-footer__email" data-footer-reveal data-cursor-hover>
+        chris@example.com
+      </a>
+
+      <ul role="list" class="site-footer__social" aria-label="Social media links" data-footer-reveal>
         <li>
-          <a href="https://www.linkedin.com/in/chris-donker/" target="_blank" rel="noopener noreferrer" aria-label="Chris on LinkedIn (opens in new tab)">
-            <img src="../../public/images/linkedin.png" alt="" aria-hidden="true" />
+          <a href="https://www.linkedin.com/in/chris-donker/" target="_blank" rel="noopener noreferrer" aria-label="Chris on LinkedIn (opens in new tab)" data-cursor-hover>
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
           </a>
         </li>
         <li>
-          <a href="https://github.com/Christian199815" target="_blank" rel="noopener noreferrer" aria-label="Chris on GitHub (opens in new tab)">
-            <img src="../../public/images/Github.png" alt="" aria-hidden="true" />
+          <a href="https://github.com/Christian199815" target="_blank" rel="noopener noreferrer" aria-label="Chris on GitHub (opens in new tab)" data-cursor-hover>
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
           </a>
         </li>
       </ul>
+    </div>
+
+    <div class="site-footer__bar" data-footer-reveal>
+      <a href="/" class="site-footer__logo" aria-label="Chris — Home">Chris</a>
+
+      <nav aria-label="Footer navigation">
+        <ul role="list" class="site-footer__nav">
+          <li><a href="/#skills-section">Skills</a></li>
+          <li><a href="/bento">Work</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="site-footer__copy"><small>&copy; Chris 2025</small></p>
     </div>
   </footer>
 
