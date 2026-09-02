@@ -31,7 +31,7 @@ export function initScrollProjectAnimations(scope) {
         );
       }
 
-      if (content) {
+      if (content && useScrub) {
         gsap.fromTo(
           content.children,
           { y: 60, opacity: 0 },

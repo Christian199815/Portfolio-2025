@@ -66,6 +66,7 @@
   position: relative;
   z-index: 0;
   transition: padding var(--transition-normal);
+  touch-action: pan-y;
 }
 
 .index__link::before {
@@ -79,13 +80,68 @@
   z-index: -1;
 }
 
-.index__row:hover .index__link::before {
+.index__row.is-active .index__link::before {
   transform: scaleY(1);
   transform-origin: 50% 0;
 }
 
-.index__row:hover .index__link {
+.index__row.is-active .index__link {
   color: var(--ink);
+}
+
+.index__row.is-active .index__num {
+  color: var(--ink);
+}
+
+.index__row.is-active .index__name-base {
+  transform: translateY(-105%);
+}
+
+.index__row.is-active .index__name-hover {
+  transform: translateY(0);
+}
+
+.index__row.is-active .index__tag,
+.index__row.is-active .index__year {
+  color: var(--ink);
+}
+
+.index__row.is-active .index__arrow {
+  transform: translate(4px, -4px);
+  color: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .index__row:hover .index__link::before {
+    transform: scaleY(1);
+    transform-origin: 50% 0;
+  }
+
+  .index__row:hover .index__link {
+    color: var(--ink);
+  }
+
+  .index__row:hover .index__num {
+    color: var(--ink);
+  }
+
+  .index__row:hover .index__name-base {
+    transform: translateY(-105%);
+  }
+
+  .index__row:hover .index__name-hover {
+    transform: translateY(0);
+  }
+
+  .index__row:hover .index__tag,
+  .index__row:hover .index__year {
+    color: var(--ink);
+  }
+
+  .index__row:hover .index__arrow {
+    transform: translate(4px, -4px);
+    color: var(--ink);
+  }
 }
 
 .index__num {
@@ -94,10 +150,6 @@
   color: var(--text-faint);
   font-variant-numeric: tabular-nums;
   transition: color var(--transition-base);
-}
-
-.index__row:hover .index__num {
-  color: var(--ink);
 }
 
 .index__name {
@@ -126,14 +178,6 @@
   transform: translateY(105%);
 }
 
-.index__row:hover .index__name-base {
-  transform: translateY(-105%);
-}
-
-.index__row:hover .index__name-hover {
-  transform: translateY(0);
-}
-
 .index__tag {
   color: var(--text-muted);
   white-space: nowrap;
@@ -149,21 +193,11 @@
   transition: color var(--transition-base);
 }
 
-.index__row:hover .index__tag,
-.index__row:hover .index__year {
-  color: var(--ink);
-}
-
 .index__arrow {
   font-size: var(--font-size-xl);
   color: var(--text-faint);
   justify-self: end;
   transition: transform 0.4s var(--ease-expo), color var(--transition-base);
-}
-
-.index__row:hover .index__arrow {
-  transform: translate(4px, -4px);
-  color: var(--ink);
 }
 
 .index__all {

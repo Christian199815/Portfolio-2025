@@ -115,6 +115,22 @@
   color: var(--text-secondary);
 }
 
+.feature__link--static {
+  touch-action: auto;
+}
+
+.feature__overlay .feature__cta--link {
+  position: relative;
+  z-index: 3;
+  touch-action: manipulation;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .feature__foot {
+    pointer-events: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .feature__link {
     height: 70svh;

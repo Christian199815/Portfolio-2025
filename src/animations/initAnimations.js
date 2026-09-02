@@ -83,17 +83,15 @@ export function initGlobalAnimations(scope) {
     };
   }
 
-  const useScrub = shouldUseScrollTriggers();
-  const cleanHeightWatcher = useScrub ? initHeightWatcher() : () => {};
+  const useScrollFx = shouldUseScrollTriggers();
+  const cleanHeightWatcher = useScrollFx ? initHeightWatcher() : () => {};
 
-  if (useScrub) {
-    initCustomCursor();
-  }
-  const cleanMagnetic = useScrub ? initMagnetic(document) : () => {};
+  const cleanMagnetic = useScrollFx ? initMagnetic(document) : () => {};
+  const cleanCursor = initCustomCursor();
 
   const ctx = gsap.context(() => {
     const progress = document.querySelector('[data-scroll-progress]');
-    if (progress && useScrub) {
+    if (progress && useScrollFx) {
       gsap.fromTo(
         progress,
         { scaleX: 0 },
@@ -121,6 +119,8 @@ export function initGlobalAnimations(scope) {
     }
 
     scope?.querySelectorAll('[data-reveal]').forEach((el) => {
+      if (!useScrollFx) return;
+
       gsap.fromTo(
         el,
         { y: 44, opacity: 0 },
@@ -139,6 +139,8 @@ export function initGlobalAnimations(scope) {
     });
 
     scope?.querySelectorAll('[data-reveal-stagger]').forEach((container) => {
+      if (!useScrollFx) return;
+
       gsap.fromTo(
         container.querySelectorAll('[data-reveal-item]'),
         { y: 40, opacity: 0 },
@@ -162,6 +164,7 @@ export function initGlobalAnimations(scope) {
 
   return () => {
     ctx.revert();
+    cleanCursor();
     cleanMagnetic();
     cleanHeaderState();
     cleanSpotlights();

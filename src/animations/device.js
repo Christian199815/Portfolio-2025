@@ -6,3 +6,8 @@ export const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matc
 /** ScrollTrigger scrub/refresh fights native touch momentum — desktop only. */
 export const shouldUseScrollTriggers = () =>
   !prefersReducedMotion() && !isCoarsePointer();
+
+/** Custom cursor needs hover, a fine pointer, and enough width — not mobile viewports. */
+export const canUseCustomCursor = () =>
+  !prefersReducedMotion() &&
+  window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 901px)').matches;

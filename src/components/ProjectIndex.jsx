@@ -1,6 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import gsap from 'gsap';
+import { useTouchDevice } from '../hooks/useTouchDevice';
+
+const CYCLE_MS = 2800;
 
 export default function ProjectIndex({
   projects,
@@ -14,6 +17,9 @@ export default function ProjectIndex({
   const rootRef = useRef(null);
   const previewRef = useRef(null);
   const slidesRef = useRef([]);
+  const isTouch = useTouchDevice();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [cyclePaused, setCyclePaused] = useState(false);
 
   useEffect(() => {
     slidesRef.current.length = projects.length;
@@ -70,6 +76,36 @@ export default function ProjectIndex({
     return () => ctx.revert();
   }, [projects]);
 
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [projects]);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || !isTouch) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!projects.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setCyclePaused(!entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    observer.observe(root);
+
+    return () => observer.disconnect();
+  }, [isTouch, projects.length]);
+
+  useEffect(() => {
+    if (!isTouch || cyclePaused || !projects.length) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const id = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % projects.length);
+    }, CYCLE_MS);
+
+    return () => window.clearInterval(id);
+  }, [isTouch, cyclePaused, projects.length]);
+
   const sectionClass = `index${bare ? ' index--bare' : ''}`;
 
   if (loading) {
@@ -112,7 +148,12 @@ export default function ProjectIndex({
 
       <ul className="index__list" role="list">
         {projects.map((project, i) => (
-          <li key={project.id} className="index__row" data-index-row data-reveal>
+          <li
+            key={project.id}
+            className={`index__row${isTouch && activeIndex === i ? ' is-active' : ''}`}
+            data-index-row
+            data-reveal
+          >
             <Link to={`/work/${project.id}`} className="index__link">
               <span className="index__num">{String(i + 1).padStart(2, '0')}</span>
               <span className="index__name display-serif">
